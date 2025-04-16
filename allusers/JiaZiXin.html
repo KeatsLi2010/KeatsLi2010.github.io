@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JiaZiXin</title>
+    <style>
+        body { margin: 0; overflow: hidden; position: relative; }
+        #ratingCanvas { display: block; }
+        #tooltip {
+            position: absolute;
+            padding: 8px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border-radius: 4px;
+            pointer-events: none;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="ratingCanvas"></canvas>
+    <div id="tooltip"></div>
+
+    <script>
+        const ratingData = [
+            {time: 1632141000000, y: 0.334417, x: 0.000000, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=f160l02', name: ' 0920模拟考试',rating: 1402.600000},
+{time: 1632921300000, y: 0.330269, x: 0.007812, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=clqfun3', name: ' 0929模拟考试',rating: 1388.970000},
+{time: 1633091400000, y: 0.319944, x: 0.015625, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=3qq8m7f', name: ' 1001模拟考试',rating: 1351.800000},
+{time: 1634130900000, y: 0.297461, x: 0.023438, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=tmmmi2r', name: ' 20220209 Week#3 - 模拟',rating: 1270.860000},
+{time: 1634130900000, y: 0.279225, x: 0.031250, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=edjrh27', name: ' 1013模拟考试',rating: 1205.210000},
+{time: 1637499600000, y: 0.281469, x: 0.039062, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=r1f72vh', name: ' NOIP2021',rating: 1213.290000},
+{time: 1644814800000, y: 0.271008, x: 0.046875, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=pubj1uh', name: ' 0214模拟考试',rating: 1175.630000},
+{time: 1645794000000, y: 0.280561, x: 0.054688, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ko0csuv', name: ' 模拟考试0817',rating: 1210.020000},
+{time: 1651235975000, y: 0.310894, x: 0.062500, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=hmqojbu', name: ' 0429模拟考试',rating: 1319.220000},
+{time: 1651926807000, y: 0.342833, x: 0.070312, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=e1uj5fo', name: ' 0507模拟考试',rating: 1422.800000},
+{time: 1653913800000, y: 0.353700, x: 0.078125, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=sco478p', name: ' 0530模拟考试',rating: 1448.880000},
+{time: 1658289600000, y: 0.350504, x: 0.085938, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=hn3qvk5', name: ' 0720模拟考试',rating: 1441.210000},
+{time: 1658548800000, y: 0.333496, x: 0.093750, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=h5ifnoj', name: ' 0723模拟考试',rating: 1400.390000},
+{time: 1658721600000, y: 0.333231, x: 0.101562, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=9ge276g', name: ' 0725',rating: 1399.630000},
+{time: 1658980800000, y: 0.342100, x: 0.109375, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=1rmlme8', name: ' 0728模拟考试',rating: 1421.040000},
+{time: 1659067200000, y: 0.332061, x: 0.117188, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=g826ncf', name: ' 0729模拟考试',rating: 1395.420000},
+{time: 1659326400000, y: 0.325525, x: 0.125000, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=p50c5f4', name: ' 0801模拟考试',rating: 1371.890000},
+{time: 1659502800000, y: 0.326925, x: 0.132812, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=l23gq22', name: ' 0803模拟考试',rating: 1376.930000},
+{time: 1659762000000, y: 0.335642, x: 0.140625, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=s48lqev', name: ' 0806模拟考试',rating: 1405.540000},
+{time: 1660021200000, y: 0.312711, x: 0.148438, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=prnv014', name: ' 0809模拟考试',rating: 1325.760000},
+{time: 1660107600000, y: 0.328517, x: 0.156250, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=97nel31', name: ' 0810模拟考试',rating: 1382.660000},
+{time: 1662955200000, y: 0.334112, x: 0.164062, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=qfl37l8', name: ' 0912模拟考试',rating: 1401.870000},
+{time: 1663993800000, y: 0.337092, x: 0.171875, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ah1jjrg', name: ' 0924模拟考试',rating: 1409.020000},
+{time: 1664598600000, y: 0.313539, x: 0.179688, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=4u14pq8', name: ' 1001模拟考试',rating: 1328.740000},
+{time: 1664627400000, y: 0.308217, x: 0.187500, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=eu8mabk', name: ' 1001',rating: 1309.580000},
+{time: 1664685000000, y: 0.304681, x: 0.195312, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=smc735o', name: ' 1002模拟考试',rating: 1296.850000},
+{time: 1664856000000, y: 0.292861, x: 0.203125, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=92g17js', name: ' 1004模拟考试',rating: 1254.300000},
+{time: 1664942400000, y: 0.317703, x: 0.210938, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=paj2bqj', name: ' 1005模拟考试',rating: 1343.730000},
+{time: 1665115200000, y: 0.307292, x: 0.218750, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=im0dajh', name: ' 1007模拟考试',rating: 1306.250000},
+{time: 1665806400000, y: 0.303536, x: 0.226562, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6q9s4gs', name: ' 1015模拟考试',rating: 1292.730000},
+{time: 1666098000000, y: 0.350192, x: 0.234375, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=bmkf857', name: ' 1003',rating: 1440.460000},
+{time: 1666098000000, y: 0.321578, x: 0.242188, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=7homjmo', name: ' 0924',rating: 1357.680000},
+{time: 1666411200000, y: 0.369417, x: 0.250000, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=4dq5o1q', name: ' 1022模拟考试',rating: 1486.600000},
+{time: 1666497600000, y: 0.349963, x: 0.257812, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=1cmeh45', name: ' 1023模拟考试',rating: 1439.910000},
+{time: 1667620800000, y: 0.362312, x: 0.265625, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=pvf1euf', name: ' 1105模拟考试',rating: 1469.550000},
+{time: 1668312000000, y: 0.324356, x: 0.273438, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=c5gmnv2', name: ' 1113',rating: 1367.680000},
+{time: 1668830400000, y: 0.327589, x: 0.281250, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=m6il6et', name: ' 1119',rating: 1379.320000},
+{time: 1669262400000, y: 0.322525, x: 0.289062, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=8otv8l', name: ' 1124模拟考试',rating: 1361.090000},
+{time: 1669435200000, y: 0.359167, x: 0.296875, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=22ilhe4', name: ' 1126模拟考试',rating: 1462.000000},
+{time: 1670040000000, y: 0.392179, x: 0.304688, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=s2u1ij2', name: ' 1203',rating: 1541.230000},
+{time: 1670731200000, y: 0.395792, x: 0.312500, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ji096sn', name: ' 1211',rating: 1549.900000},
+{time: 1670934600000, y: 0.420846, x: 0.320312, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=fcam2d0', name: ' 1213',rating: 1610.030000},
+{time: 1671249600000, y: 0.421204, x: 0.328125, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=bd8s0vo', name: ' 1217',rating: 1610.890000},
+{time: 1671539400000, y: 0.417079, x: 0.335938, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6j5mu4m', name: ' 1220',rating: 1600.990000},
+{time: 1671854400000, y: 0.370425, x: 0.343750, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=k9ugf54', name: ' 1224',rating: 1489.020000},
+{time: 1673064000000, y: 0.394046, x: 0.351562, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=c3lmrt9', name: ' 0107模拟考试',rating: 1545.710000},
+{time: 1673236800000, y: 0.404212, x: 0.359375, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=tr0j1lh', name: ' 0109模拟考试',rating: 1570.110000},
+{time: 1673409600000, y: 0.439937, x: 0.367188, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=8mf5877', name: ' 0111模拟考试',rating: 1655.850000},
+{time: 1675310400000, y: 0.412854, x: 0.375000, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=603kifp', name: ' 0202模拟考试',rating: 1590.850000},
+{time: 1675396800000, y: 0.369804, x: 0.382812, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=jg43b1f', name: ' 0203模拟考试',rating: 1487.530000},
+{time: 1675569600000, y: 0.384892, x: 0.390625, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=9pdt9bj', name: ' 0205模拟考试',rating: 1523.740000},
+{time: 1675656000000, y: 0.364912, x: 0.398438, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=g2jvscn', name: ' 0206模拟考试',rating: 1475.790000},
+{time: 1675828800000, y: 0.373958, x: 0.406250, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=407ncas', name: ' 0208模拟考试',rating: 1497.500000},
+{time: 1675915200000, y: 0.379462, x: 0.414062, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=4crg69p', name: ' 0209模拟考试',rating: 1510.710000},
+{time: 1676088000000, y: 0.368808, x: 0.421875, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=pb16vub', name: ' 0211模拟考试',rating: 1485.140000},
+{time: 1676174400000, y: 0.366375, x: 0.429688, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=15lpnf0', name: ' 0212模拟考试',rating: 1479.300000},
+{time: 1676347200000, y: 0.327661, x: 0.437500, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=8kqtt1l', name: ' 0214模拟考试',rating: 1379.580000},
+{time: 1676433600000, y: 0.334225, x: 0.445312, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=b3103vd', name: ' 0215模拟考试',rating: 1402.140000},
+{time: 1676606400000, y: 0.338046, x: 0.453125, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=b2qc0qm', name: ' 0217',rating: 1411.310000},
+{time: 1676692800000, y: 0.351504, x: 0.460938, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=hoe7hc6', name: ' 0218模拟考试',rating: 1443.610000},
+{time: 1676865600000, y: 0.366133, x: 0.468750, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=hfpcgfp', name: ' 0220模拟考试',rating: 1478.720000},
+{time: 1677038400000, y: 0.356062, x: 0.476562, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mssocum', name: ' 0222模拟考试',rating: 1454.550000},
+{time: 1677211200000, y: 0.347888, x: 0.484375, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=seul821', name: ' 0224模拟考试',rating: 1434.930000},
+{time: 1677470400000, y: 0.378946, x: 0.492188, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=5d100m', name: ' 0227模拟考试',rating: 1509.470000},
+{time: 1677643200000, y: 0.354146, x: 0.500000, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=rbhk3qe', name: ' 0301模拟考试',rating: 1449.950000},
+{time: 1677816000000, y: 0.319903, x: 0.507812, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=u7mkobq', name: ' 0303模拟考试',rating: 1351.650000},
+{time: 1679716800000, y: 0.318303, x: 0.515625, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=59j2jv', name: ' 0325',rating: 1345.890000},
+{time: 1680321600000, y: 0.292628, x: 0.523438, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=n61told', name: ' 0401',rating: 1253.460000},
+{time: 1681218000000, y: 0.296003, x: 0.531250, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=nkuej4i', name: ' 0409',rating: 1265.610000},
+{time: 1681547400000, y: 0.315786, x: 0.539062, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ibcecst', name: ' 0415模拟考试',rating: 1336.830000},
+{time: 1683950400000, y: 0.301119, x: 0.546875, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=n4o8c6o', name: ' 0512模拟考试',rating: 1284.030000},
+{time: 1684242000000, y: 0.310867, x: 0.554688, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=2u5mlv', name: ' 0516',rating: 1319.120000},
+{time: 1684555200000, y: 0.281992, x: 0.562500, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=klucc7m', name: ' 0520模拟考试',rating: 1215.170000},
+{time: 1686472200000, y: 0.300022, x: 0.570312, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=lrugv8o', name: ' 0611',rating: 1280.080000},
+{time: 1689220800000, y: 0.327164, x: 0.578125, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=7jkkdk2', name: ' 0713',rating: 1377.790000},
+{time: 1689393600000, y: 0.329386, x: 0.585938, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=v9ktk5', name: ' 0715',rating: 1385.790000},
+{time: 1689480000000, y: 0.341567, x: 0.593750, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=rvre7pl', name: ' 0716',rating: 1419.760000},
+{time: 1689566400000, y: 0.332983, x: 0.601562, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=jhee42b', name: ' 0717',rating: 1398.740000},
+{time: 1689739200000, y: 0.337217, x: 0.609375, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=8i541rk', name: ' 0719',rating: 1409.320000},
+{time: 1689825600000, y: 0.314756, x: 0.617188, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=svnf836', name: ' 0720',rating: 1333.120000},
+{time: 1689912000000, y: 0.309656, x: 0.625000, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=2qkkgd2', name: ' 0721',rating: 1314.760000},
+{time: 1691081591000, y: 0.326978, x: 0.632812, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=9qb9i75', name: ' NOI2023 Day1',rating: 1377.120000},
+{time: 1691742600000, y: 0.355958, x: 0.640625, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=f8dikjc', name: ' 0811',rating: 1454.300000},
+{time: 1691829000000, y: 0.379779, x: 0.648438, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=h4gj9d8', name: ' 0812',rating: 1511.470000},
+{time: 1691985600000, y: 0.404808, x: 0.656250, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=t12nbq', name: ' 0814',rating: 1571.540000},
+{time: 1692088200000, y: 0.426429, x: 0.664062, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=rnhhm89', name: ' 0815',rating: 1623.430000},
+{time: 1692261000000, y: 0.454767, x: 0.671875, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=hsdd8au', name: ' 0817',rating: 1691.440000},
+{time: 1692347400000, y: 0.458492, x: 0.679688, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mnvv1m8', name: ' 0818',rating: 1700.380000},
+{time: 1692520200000, y: 0.477367, x: 0.687500, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=4lgr1nm', name: ' 0820',rating: 1745.680000},
+{time: 1692779400000, y: 0.494533, x: 0.695312, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=fhc4vkr', name: ' 0823',rating: 1786.880000},
+{time: 1692865800000, y: 0.490396, x: 0.703125, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mqb7k7j', name: ' 0824',rating: 1776.950000},
+{time: 1693038600000, y: 0.496292, x: 0.710938, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ngsgel5', name: ' 0826',rating: 1791.100000},
+{time: 1693125000000, y: 0.474808, x: 0.718750, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=iab0uc0', name: ' 0827',rating: 1739.540000},
+{time: 1694232000000, y: 0.468988, x: 0.726562, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ll4v6s3', name: ' 0909',rating: 1725.570000},
+{time: 1695042000000, y: 0.446821, x: 0.734375, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=cic7kn8', name: ' 0918',rating: 1672.370000},
+{time: 1695286800000, y: 0.414183, x: 0.742188, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=b8ntvss', name: ' 0921',rating: 1594.040000},
+{time: 1695441600000, y: 0.394775, x: 0.750000, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=d030e4u', name: ' 0923',rating: 1547.460000},
+{time: 1695630600000, y: 0.359708, x: 0.757812, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=gn410bq', name: ' 0925',rating: 1463.300000},
+{time: 1695805200000, y: 0.325436, x: 0.765625, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=n9gauoe', name: ' 0927',rating: 1371.570000},
+{time: 1695960000000, y: 0.343433, x: 0.773438, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=f4l1ks6', name: ' 0929',rating: 1424.240000},
+{time: 1696480200000, y: 0.348037, x: 0.781250, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=g2psqha', name: ' 1005',rating: 1435.290000},
+{time: 1696564800000, y: 0.350229, x: 0.789062, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=pvp6giq', name: ' 1006',rating: 1440.550000},
+{time: 1696753800000, y: 0.323528, x: 0.796875, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=l319u8k', name: ' 1008',rating: 1364.700000},
+{time: 1698049800000, y: 0.331414, x: 0.804688, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=dkv0g4u', name: ' 1023',rating: 1393.090000},
+{time: 1698066000000, y: 0.305328, x: 0.812500, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ee4np0m', name: ' CSPS2023',rating: 1299.180000},
+{time: 1698222600000, y: 0.304078, x: 0.820312, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=b5kdv1l', name: ' 1025',rating: 1294.680000},
+{time: 1698379200000, y: 0.321142, x: 0.828125, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=r2ujs70', name: ' 1027模拟考试',rating: 1356.110000},
+{time: 1698638400000, y: 0.347792, x: 0.835938, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=pvo25dh', name: ' 1030模拟考试',rating: 1434.700000},
+{time: 1698811200000, y: 0.345975, x: 0.843750, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=u6gl20m', name: ' 1101模拟考试',rating: 1430.340000},
+{time: 1698984000000, y: 0.374850, x: 0.851562, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6i2gb0p', name: ' 1103模拟考试',rating: 1499.640000},
+{time: 1699243200000, y: 0.371029, x: 0.859375, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=369oeuq', name: ' 1106模拟考试',rating: 1490.470000},
+{time: 1699345800000, y: 0.391675, x: 0.867188, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=joeovp3', name: ' 1107模拟考试',rating: 1540.020000},
+{time: 1699416000000, y: 0.349296, x: 0.875000, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=jdb8p8u', name: ' 1107模拟考试',rating: 1438.310000},
+{time: 1699588800000, y: 0.366642, x: 0.882812, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=gu9kk8k', name: ' 1110模拟考试',rating: 1479.940000},
+{time: 1699707600000, y: 0.343933, x: 0.890625, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=s9fhiou', name: ' 1111模拟考试',rating: 1425.440000},
+{time: 1699864200000, y: 0.343179, x: 0.898438, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=lj826rf', name: ' 1113模拟考试',rating: 1423.630000},
+{time: 1699966800000, y: 0.327869, x: 0.906250, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=o5sb6qm', name: ' 1114模拟考试',rating: 1380.330000},
+{time: 1700107200000, y: 0.344150, x: 0.914062, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=9vad1g5', name: ' 1115模拟考试',rating: 1425.960000},
+
+        ];
+
+        // 数据预处理 [[8]]
+        ratingData.sort((a, b) => a.time - b.time);
+        const minTime = Math.min(...ratingData.map(d => d.time));
+        const maxTime = Math.max(...ratingData.map(d => d.time));
+
+        const canvas = document.getElementById('ratingCanvas');
+        const ctx = canvas.getContext('2d');
+        const tooltip = document.getElementById('tooltip');
+        let canvasWidth, canvasHeight;
+
+        function resizeCanvas() {
+            canvasWidth = window.innerWidth;
+            canvasHeight = window.innerHeight * 0.6;
+            canvas.width = canvasWidth * devicePixelRatio;
+            canvas.height = canvasHeight * devicePixelRatio;
+            canvas.style.width = `${canvasWidth}px`;
+            canvas.style.height = `${canvasHeight}px`;
+            ctx.scale(devicePixelRatio, devicePixelRatio);
+            draw();
+        }
+        function draw() {
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            const segments = 6;
+            const segmentHeight = canvasHeight / segments;
+            const colors = ["#fe4c61","#ffc116","#52c41a","#5cdbd3","#3498db","#9c1d19"];
+            const ratings= [0,800,1400,1800,2000,2500,3500];
+            colors.forEach((color, index) => {
+                index=5-index;
+                ctx.fillStyle = color;
+                ctx.fillRect(
+                    0, 
+                    canvasHeight - (index + 1) * segmentHeight,
+                    canvasWidth,
+                    segmentHeight
+                );
+            });
+
+            // 绘制坐标轴 [[4]]
+            const axisMargin = 40; // 左侧纵坐标边距
+            ctx.strokeStyle = '#666';
+            
+            // 绘制左侧纵坐标轴
+            ctx.beginPath();
+            ctx.moveTo(axisMargin, 0);
+            ctx.lineTo(axisMargin, canvasHeight);
+            ctx.stroke();
+
+            // 绘制底部横坐标轴
+            ctx.beginPath();
+            ctx.moveTo(axisMargin, canvasHeight-0.5);
+            ctx.lineTo(canvasWidth, canvasHeight-0.5);
+            ctx.stroke();
+
+            // 绘制纵坐标标签和刻度
+            ctx.fillStyle = '#666';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            
+            const maxValue = 100;
+            const minValue = 0;
+            const step = (maxValue - minValue) / segments;
+            
+            for(let i = 0; i <= segments; i++) {
+                const y = canvasHeight - (i * segmentHeight);
+                
+                // 绘制刻度线
+                ctx.beginPath();
+                ctx.moveTo(axisMargin - 5, y);
+                ctx.lineTo(axisMargin, y);
+                ctx.stroke();
+                
+                // 绘制标签
+                ctx.fillText(ratings[i], axisMargin - 8, y + 4);
+            }
+            var lstyear="114514",lstmonth="1919810";
+            ratingData.forEach(data => {
+                const x = data.x*canvasWidth;
+                ctx.beginPath();
+                ctx.moveTo(x, canvasHeight);
+                ctx.lineTo(x, canvasHeight + 5);
+                ctx.stroke();
+                const date = new Date(data.time);
+                ctx.fillStyle = "#333";
+                ctx.font = "12px Arial";
+                ctx.textAlign = "center";
+                var year=String(date.getFullYear());
+                if(year!=lstyear){
+                    ctx.fillText(
+                        year+"年",
+                        x,
+                        canvasHeight - 5
+                    );
+                }else{
+                    var month=String(date.getMonth()+1).padStart(2, '0');
+                    if(month!=lstmonth){
+                        ctx.fillText(
+                            month+"月",
+                            x,
+                            canvasHeight - 5
+                        );
+                    }
+                }
+                lstmonth=month,lstyear=year;
+            });
+
+            // 绘制数据折线
+            ctx.beginPath();
+            ctx.lineWidth = 2;
+            ratingData.forEach((point, index) => {
+                const x = point.x*canvasWidth;
+                const y = canvasHeight - point.y * canvasHeight;
+                point._x = x;
+                point._y = y;
+
+                if (index === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+
+            const lineGradient = ctx.createLinearGradient(0, 0, canvasWidth, 0);
+            lineGradient.addColorStop(0, '#00008B');
+            lineGradient.addColorStop(1, '#E0FFFF');
+            ctx.strokeStyle = lineGradient;
+            ctx.stroke();
+
+            // 绘制数据点和标注（保持原有逻辑）
+            ratingData.forEach(point => {
+                const x = point.x*canvasWidth;
+                const y = canvasHeight - point.y * canvasHeight;
+                
+                ctx.beginPath();
+                ctx.fillStyle = "#66CCFF";
+                ctx.arc(x, y, 5, 0, Math.PI*2);
+                ctx.fill();
+                
+                ctx.fillStyle = "#00008B";
+            });
+        }
+
+        // 保持原有事件处理逻辑
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            let hoverPoint = null;
+            for (const point of ratingData) {
+                const dx = mouseX - point._x;
+                const dy = mouseY - point._y;
+                if (Math.hypot(dx, dy) < 12) {
+                    hoverPoint = point;
+                    break;
+                }
+            }
+
+            tooltip.style.display = hoverPoint ? 'block' : 'none';
+            if (hoverPoint) {
+                tooltip.style.left = `${e.pageX + 10}px`;
+                tooltip.style.top = `${e.pageY + 10}px`;
+                tooltip.textContent = "rating: "+parseInt(hoverPoint.rating)+hoverPoint.name;
+            }
+        });
+
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            ratingData.some(point => {
+                const dx = x - point._x;
+                const dy = y - point._y;
+                if (Math.hypot(dx, dy) < 12) {
+                    window.open(point.url, '_blank');
+                    return true;
+                }
+            });
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+    </script>
+</body>
+</html>

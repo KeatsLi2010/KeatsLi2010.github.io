@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LvMingGe</title>
+    <style>
+        body { margin: 0; overflow: hidden; position: relative; }
+        #ratingCanvas { display: block; }
+        #tooltip {
+            position: absolute;
+            padding: 8px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border-radius: 4px;
+            pointer-events: none;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="ratingCanvas"></canvas>
+    <div id="tooltip"></div>
+
+    <script>
+        const ratingData = [
+            {time: 1706155200000, y: 0.317281, x: 0.000000, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=pvkp1ec', name: ' 20240125 - 集训23&P+ - 联合比赛',rating: 1342.210000},
+{time: 1706500800000, y: 0.314614, x: 0.017241, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=lspffao', name: ' 20240129 - 集训23 - 模拟赛',rating: 1332.610000},
+{time: 1708574400000, y: 0.342433, x: 0.034483, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=7bamj0n', name: ' 0222模拟考试',rating: 1421.840000},
+{time: 1708747200000, y: 0.362621, x: 0.051724, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ibrhe7v', name: ' 0224模拟考试',rating: 1470.290000},
+{time: 1719460800000, y: 0.398075, x: 0.068966, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=84glld3', name: ' 0627模拟考试',rating: 1555.380000},
+{time: 1719547200000, y: 0.382854, x: 0.086207, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=8oa8p8u', name: ' 0628模拟考试',rating: 1518.850000},
+{time: 1719806400000, y: 0.390600, x: 0.103448, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=frempus', name: ' 0701模拟考试',rating: 1537.440000},
+{time: 1719892800000, y: 0.367975, x: 0.120690, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=i9rsic5', name: ' 0702模拟考试',rating: 1483.140000},
+{time: 1719995400000, y: 0.343650, x: 0.137931, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=s5cbpq0', name: ' 0703模拟考试',rating: 1424.760000},
+{time: 1720152000000, y: 0.325914, x: 0.155172, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=2fsfvjk', name: ' 0705模拟考试',rating: 1373.290000},
+{time: 1725697800000, y: 0.340600, x: 0.172414, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=m9sd7t5', name: ' 0907模拟考试',rating: 1417.440000},
+{time: 1726993800000, y: 0.364804, x: 0.189655, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=fj11bdd', name: ' 0922模拟考试',rating: 1475.530000},
+{time: 1727150400000, y: 0.379737, x: 0.206897, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=td3nhqv', name: ' 0924模拟考试',rating: 1511.370000},
+{time: 1727323200000, y: 0.351912, x: 0.224138, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=t2jdskk', name: ' 0926模拟考试',rating: 1444.590000},
+{time: 1727668800000, y: 0.364067, x: 0.241379, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=4tq4q2j', name: ' 0930模拟考试',rating: 1473.760000},
+{time: 1727857800000, y: 0.355112, x: 0.258621, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ruoj9f5', name: ' 1002模拟考试（陈雨翔、李济慈、姚心瑜、梁洛尘）',rating: 1452.270000},
+{time: 1728289800000, y: 0.355058, x: 0.275862, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ontlhtj', name: ' 1007模拟考试（施云浩、陈雨翔）',rating: 1452.140000},
+{time: 1728446400000, y: 0.324858, x: 0.293103, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6emgm10', name: ' 1009模拟考试',rating: 1369.490000},
+{time: 1728619200000, y: 0.303533, x: 0.310345, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6si2l4f', name: ' 1011模拟考试',rating: 1292.720000},
+{time: 1728808200000, y: 0.317961, x: 0.327586, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=rau0qtk', name: ' 1013模拟考试（何忻哲、张家瑞、洪以慷）',rating: 1344.660000},
+{time: 1728878400000, y: 0.334254, x: 0.344828, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=nv7286j', name: ' 1014模拟考试',rating: 1402.210000},
+{time: 1729051200000, y: 0.331361, x: 0.362069, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=lhs4ksu', name: ' 1016模拟考试',rating: 1392.900000},
+{time: 1729224000000, y: 0.342942, x: 0.379310, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=qb2bsjo', name: ' 1018模拟考试',rating: 1423.060000},
+{time: 1729483200000, y: 0.326317, x: 0.396552, url: 'https://www.xinyoudui.com/ranklist/student?courseId=1315&contestId=7296', name: ' 10.21noip模拟一',rating: 1374.740000},
+{time: 1729656000000, y: 0.333242, x: 0.413793, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6g4ko0b', name: ' 1023模拟考试',rating: 1399.670000},
+{time: 1730088000000, y: 0.357025, x: 0.431034, url: 'https://www.xinyoudui.com/ranklist/student?courseId=1315&contestId=7300', name: ' 10.28noip模拟三',rating: 1456.860000},
+{time: 1730260800000, y: 0.338662, x: 0.448276, url: 'https://www.xinyoudui.com/ranklist/student?courseId=1315&contestId=7302', name: ' 10.30noip模拟四',rating: 1412.790000},
+{time: 1730520000000, y: 0.333225, x: 0.465517, url: 'https://www.xinyoudui.com/ranklist/student?courseId=1315&contestId=7303', name: ' 11.02noip模拟五',rating: 1399.610000},
+{time: 1730692800000, y: 0.324742, x: 0.482759, url: 'https://www.xinyoudui.com/ranklist/student?courseId=1315&contestId=7304', name: ' 11.04noip模拟六',rating: 1369.070000},
+{time: 1731297600000, y: 0.336796, x: 0.500000, url: 'https://www.xinyoudui.com/ranklist/student?courseId=1315&contestId=7307', name: ' 11.11noip模拟九',rating: 1408.310000},
+{time: 1731470400000, y: 0.328503, x: 0.517241, url: 'https://www.xinyoudui.com/ranklist/student?courseId=1315&contestId=7308', name: ' 11.13noip模拟十',rating: 1382.610000},
+{time: 1731729600000, y: 0.333375, x: 0.534483, url: 'https://www.xinyoudui.com/ranklist/student?courseId=1315&contestId=7309', name: ' 11.16noip模拟十一',rating: 1400.100000},
+{time: 1731902400000, y: 0.327019, x: 0.551724, url: 'https://www.xinyoudui.com/ranklist/student?courseId=1315&contestId=7310', name: ' 11.18noip模拟十二',rating: 1377.270000},
+{time: 1732075200000, y: 0.344217, x: 0.568966, url: 'https://www.xinyoudui.com/ranklist/student?courseId=1315&contestId=7311', name: ' 11.20noip模拟十三',rating: 1426.120000},
+{time: 1732336200000, y: 0.319147, x: 0.586207, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=fdlt8de', name: ' 1123模拟考试',rating: 1348.930000},
+{time: 1732507200000, y: 0.306306, x: 0.603448, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mua4lev', name: ' 1125模拟考试',rating: 1302.700000},
+{time: 1732680000000, y: 0.324572, x: 0.620690, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=347sctk', name: ' 1127模拟考试',rating: 1368.460000},
+{time: 1733544000000, y: 0.307506, x: 0.637931, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=gpd5qf5', name: ' 1206模拟考试（张毓山、张家瑞、彭子瀚）',rating: 1307.020000},
+{time: 1734148800000, y: 0.308539, x: 0.655172, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ofjuh5v', name: ' 1214模拟考试（李星成、陈雨翔、董一瑄）',rating: 1310.740000},
+{time: 1734753600000, y: 0.306928, x: 0.672414, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=m1cl0mn', name: ' 1121模拟考试（施云浩、董一瑄、陈雨翔）',rating: 1304.940000},
+{time: 1735360200000, y: 0.292161, x: 0.689655, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=k5bii8j', name: ' 1228模拟考试',rating: 1251.780000},
+{time: 1738987200000, y: 0.286083, x: 0.706897, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=gb8i934', name: ' 0208模拟考试',rating: 1229.900000},
+{time: 1739593800000, y: 0.274553, x: 0.724138, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=oigg4fe', name: ' 0215模拟考试',rating: 1188.390000},
+{time: 1742013000000, y: 0.266717, x: 0.741379, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=qc1sf94', name: ' 0314模拟考试',rating: 1160.180000},
+{time: 1742617800000, y: 0.258939, x: 0.758621, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ne79i3d', name: ' 0322',rating: 1132.180000},
+{time: 1743222600000, y: 0.256053, x: 0.775862, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=92vmvkq', name: ' 0329',rating: 1121.790000},
+{time: 1743913800000, y: 0.273253, x: 0.793103, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ck4oim2', name: ' 0406',rating: 1183.710000},
+{time: 1744432200000, y: 0.270161, x: 0.810345, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=hu2cepm', name: ' 0412模拟考试',rating: 1172.580000},
+
+        ];
+
+        // 数据预处理 [[8]]
+        ratingData.sort((a, b) => a.time - b.time);
+        const minTime = Math.min(...ratingData.map(d => d.time));
+        const maxTime = Math.max(...ratingData.map(d => d.time));
+
+        const canvas = document.getElementById('ratingCanvas');
+        const ctx = canvas.getContext('2d');
+        const tooltip = document.getElementById('tooltip');
+        let canvasWidth, canvasHeight;
+
+        function resizeCanvas() {
+            canvasWidth = window.innerWidth;
+            canvasHeight = window.innerHeight * 0.6;
+            canvas.width = canvasWidth * devicePixelRatio;
+            canvas.height = canvasHeight * devicePixelRatio;
+            canvas.style.width = `${canvasWidth}px`;
+            canvas.style.height = `${canvasHeight}px`;
+            ctx.scale(devicePixelRatio, devicePixelRatio);
+            draw();
+        }
+        function draw() {
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            const segments = 6;
+            const segmentHeight = canvasHeight / segments;
+            const colors = ["#fe4c61","#ffc116","#52c41a","#5cdbd3","#3498db","#9c1d19"];
+            const ratings= [0,800,1400,1800,2000,2500,3500];
+            colors.forEach((color, index) => {
+                index=5-index;
+                ctx.fillStyle = color;
+                ctx.fillRect(
+                    0, 
+                    canvasHeight - (index + 1) * segmentHeight,
+                    canvasWidth,
+                    segmentHeight
+                );
+            });
+
+            // 绘制坐标轴 [[4]]
+            const axisMargin = 40; // 左侧纵坐标边距
+            ctx.strokeStyle = '#666';
+            
+            // 绘制左侧纵坐标轴
+            ctx.beginPath();
+            ctx.moveTo(axisMargin, 0);
+            ctx.lineTo(axisMargin, canvasHeight);
+            ctx.stroke();
+
+            // 绘制底部横坐标轴
+            ctx.beginPath();
+            ctx.moveTo(axisMargin, canvasHeight-0.5);
+            ctx.lineTo(canvasWidth, canvasHeight-0.5);
+            ctx.stroke();
+
+            // 绘制纵坐标标签和刻度
+            ctx.fillStyle = '#666';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            
+            const maxValue = 100;
+            const minValue = 0;
+            const step = (maxValue - minValue) / segments;
+            
+            for(let i = 0; i <= segments; i++) {
+                const y = canvasHeight - (i * segmentHeight);
+                
+                // 绘制刻度线
+                ctx.beginPath();
+                ctx.moveTo(axisMargin - 5, y);
+                ctx.lineTo(axisMargin, y);
+                ctx.stroke();
+                
+                // 绘制标签
+                ctx.fillText(ratings[i], axisMargin - 8, y + 4);
+            }
+            var lstyear="114514",lstmonth="1919810";
+            ratingData.forEach(data => {
+                const x = data.x*canvasWidth;
+                ctx.beginPath();
+                ctx.moveTo(x, canvasHeight);
+                ctx.lineTo(x, canvasHeight + 5);
+                ctx.stroke();
+                const date = new Date(data.time);
+                ctx.fillStyle = "#333";
+                ctx.font = "12px Arial";
+                ctx.textAlign = "center";
+                var year=String(date.getFullYear());
+                if(year!=lstyear){
+                    ctx.fillText(
+                        year+"年",
+                        x,
+                        canvasHeight - 5
+                    );
+                }else{
+                    var month=String(date.getMonth()+1).padStart(2, '0');
+                    if(month!=lstmonth){
+                        ctx.fillText(
+                            month+"月",
+                            x,
+                            canvasHeight - 5
+                        );
+                    }
+                }
+                lstmonth=month,lstyear=year;
+            });
+
+            // 绘制数据折线
+            ctx.beginPath();
+            ctx.lineWidth = 2;
+            ratingData.forEach((point, index) => {
+                const x = point.x*canvasWidth;
+                const y = canvasHeight - point.y * canvasHeight;
+                point._x = x;
+                point._y = y;
+
+                if (index === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+
+            const lineGradient = ctx.createLinearGradient(0, 0, canvasWidth, 0);
+            lineGradient.addColorStop(0, '#00008B');
+            lineGradient.addColorStop(1, '#E0FFFF');
+            ctx.strokeStyle = lineGradient;
+            ctx.stroke();
+
+            // 绘制数据点和标注（保持原有逻辑）
+            ratingData.forEach(point => {
+                const x = point.x*canvasWidth;
+                const y = canvasHeight - point.y * canvasHeight;
+                
+                ctx.beginPath();
+                ctx.fillStyle = "#66CCFF";
+                ctx.arc(x, y, 5, 0, Math.PI*2);
+                ctx.fill();
+                
+                ctx.fillStyle = "#00008B";
+            });
+        }
+
+        // 保持原有事件处理逻辑
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            let hoverPoint = null;
+            for (const point of ratingData) {
+                const dx = mouseX - point._x;
+                const dy = mouseY - point._y;
+                if (Math.hypot(dx, dy) < 12) {
+                    hoverPoint = point;
+                    break;
+                }
+            }
+
+            tooltip.style.display = hoverPoint ? 'block' : 'none';
+            if (hoverPoint) {
+                tooltip.style.left = `${e.pageX + 10}px`;
+                tooltip.style.top = `${e.pageY + 10}px`;
+                tooltip.textContent = "rating: "+parseInt(hoverPoint.rating)+hoverPoint.name;
+            }
+        });
+
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            ratingData.some(point => {
+                const dx = x - point._x;
+                const dy = y - point._y;
+                if (Math.hypot(dx, dy) < 12) {
+                    window.open(point.url, '_blank');
+                    return true;
+                }
+            });
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+    </script>
+</body>
+</html>

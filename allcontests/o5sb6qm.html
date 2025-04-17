@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>1114模拟考试</title>
+    <style>
+        table { width: 80%; margin: 20px auto; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: center; border: 1px solid #ddd; }
+        th { background-color: #f5f5f5; cursor: pointer; position: relative; }
+        .top1 { background-color: #ffd700; }
+        .top2 { background-color: #c0c0c0; }
+        .top3 { background-color: #cd7f32; }
+        .positive { color: #19be6b; }
+        .negative { color: #ed4014; }
+        .none {color: #3c4858;}
+        .sort-icon { margin-left: 5px; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center">1114模拟考试</h2>
+    <table>
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">排名<span class="sort-icon" id="icon0"></span></th>
+                <th onclick="sortTable(1)">姓名<span class="sort-icon" id="icon1"></span></th>
+                <th onclick="sortTable(2)">分数<span class="sort-icon" id="icon2"></span></th>
+                <th onclick="sortTable(3)">Rating<span class="sort-icon" id="icon3"></span></th>
+                <th onclick="sortTable(4)">Δ<span class="sort-icon" id="icon4"></span></th>
+            </tr>
+        </thead>
+        <tbody id="rankBody">
+            <tr><td>1</td><td>ZhouLeDa</td><td>324</td><td>1890.11</td><td class="positive">+65.49</td></tr>
+<tr><td>2</td><td>LiaoZhiHan</td><td>316</td><td>1848.75</td><td class="positive">+62.27</td></tr>
+<tr><td>3</td><td>HuKeFan</td><td>305</td><td>1803.65</td><td class="positive">+59.47</td></tr>
+<tr><td>4</td><td>LuZhongXu</td><td>301</td><td>1520.42</td><td class="positive">+80.55</td></tr>
+<tr><td>5</td><td>SunJiaLe</td><td>300</td><td>1930.02</td><td class="positive">+32.84</td></tr>
+<tr><td>6</td><td>YaoXinYu</td><td>284</td><td>1499.46</td><td class="positive">+68.64</td></tr>
+<tr><td>7</td><td>DuanYuXian</td><td>260</td><td>1224.94</td><td class="positive">+82.15</td></tr>
+<tr><td>8</td><td>ZhangJianZhong</td><td>256</td><td>1882.33</td><td class="positive">+17.57</td></tr>
+<tr><td>9</td><td>YuJiaMing07</td><td>246</td><td>1288.33</td><td class="positive">+65.16</td></tr>
+<tr><td>10</td><td>HuangJinYang</td><td>240</td><td>1666.01</td><td class="positive">+23.12</td></tr>
+<tr><td>10</td><td>HuangLongSheng</td><td>240</td><td>1764.29</td><td class="positive">+9.26</td></tr>
+<tr><td>12</td><td>LiuYuXuan08</td><td>239</td><td>1251.82</td><td class="positive">+48.01</td></tr>
+<tr><td>13</td><td>LiYiZe09</td><td>236</td><td>1612.97</td><td class="positive">+8.53</td></tr>
+<tr><td>14</td><td>ChenYuXiang</td><td>233</td><td>1968.05</td><td class="negative">-28.34</td></tr>
+<tr><td>15</td><td>ZhuJiaCheng</td><td>227</td><td>1376.50</td><td class="positive">+17.80</td></tr>
+<tr><td>16</td><td>ZhangJiaRui09</td><td>223</td><td>1368.47</td><td class="positive">+11.14</td></tr>
+<tr><td>17</td><td>LiYu</td><td>217</td><td>1026.28</td><td class="positive">+31.01</td></tr>
+<tr><td>18</td><td>PengZiHan</td><td>213</td><td>1464.17</td><td class="negative">-11.73</td></tr>
+<tr><td>19</td><td>LiYunChen</td><td>206</td><td>1684.25</td><td class="negative">-38.99</td></tr>
+<tr><td>20</td><td>WangWeiZhen</td><td>204</td><td>1556.83</td><td class="negative">-35.03</td></tr>
+<tr><td>21</td><td>ShiYunHao09</td><td>194</td><td>1631.97</td><td class="negative">-49.17</td></tr>
+<tr><td>22</td><td>ZhangDingChen</td><td>190</td><td>1291.60</td><td class="negative">-24.88</td></tr>
+<tr><td>22</td><td>JiaZiXin</td><td>190</td><td>1444.19</td><td class="negative">-44.73</td></tr>
+<tr><td>24</td><td>LaiZeZhou</td><td>189</td><td>1310.47</td><td class="negative">-40.15</td></tr>
+<tr><td>25</td><td>YuJiaYang</td><td>188</td><td>1367.29</td><td class="negative">-53.31</td></tr>
+<tr><td>26</td><td>ZhangYuShan</td><td>179</td><td>1401.77</td><td class="negative">-64.12</td></tr>
+<tr><td>27</td><td>YangShangLin</td><td>174</td><td>759.79</td><td class="negative">-12.21</td></tr>
+<tr><td>28</td><td>ZengFanYu</td><td>158</td><td>971.79</td><td class="negative">-35.38</td></tr>
+<tr><td>29</td><td>LiJiCi</td><td>141</td><td>1795.96</td><td class="negative">-109.78</td></tr>
+<tr><td>30</td><td>WangSiHan11</td><td>139</td><td>1363.55</td><td class="negative">-86.75</td></tr>
+<tr><td>31</td><td>ZhaoAnKun</td><td>0</td><td>901.36</td><td class="negative">-48.40</td></tr>
+
+        </tbody>
+    </table>
+
+<script>
+let currentSort = { 
+    column: 0, 
+    order: 'desc',
+    icons: Array.from({length:5}, () => ({asc: '', desc: ''}))
+};
+
+// 初始化默认排序图标配置
+currentSort.icons = [
+    {desc: '↓', asc: '↑'},   // 排名列图标方向相反（实际按分数排序）
+    {desc: '↓', asc: '↑'},   // 姓名列
+    {desc: '↓', asc: '↑'},   // 分数列
+    {desc: '↓', asc: '↑'},   // Rating列
+    {desc: '↓', asc: '↑'}    // Δ列
+];
+
+function sortTable(columnIndex) {
+    const tbody = document.getElementById('rankBody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    
+    // 更新排序状态和图标
+    if (currentSort.column === columnIndex) {
+        currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+    } else {
+        currentSort.column = columnIndex;
+        currentSort.order = getDefaultOrder(columnIndex);
+    }
+    updateSortIcons();
+
+    // 获取默认排序方向
+    function getDefaultOrder(index) {
+        return 'desc'; // 姓名列默认升序，其他降序
+    }
+
+    // 核心排序逻辑
+    rows.sort((a, b) => {
+        let aVal, bVal;
+        
+        switch(currentSort.column) {
+            case 0: // 排名（实际按分数）
+                aVal = parseInt(a.cells[2].textContent);
+                bVal = parseInt(b.cells[2].textContent);
+                break;
+            case 1: // 姓名
+                aVal = a.cells[1].textContent;
+                bVal = b.cells[1].textContent;
+                return currentSort.order === 'desc' 
+                    ? aVal.localeCompare(bVal) 
+                    : bVal.localeCompare(aVal);
+            case 2: // 分数
+                aVal = parseInt(a.cells[2].textContent);
+                bVal = parseInt(b.cells[2].textContent);
+                break;
+            case 3: // Rating
+                aVal = parseFloat(a.cells[3].textContent);
+                bVal = parseFloat(b.cells[3].textContent);
+                break;
+            case 4: // Δ
+                aVal = parseFloat(a.cells[4].textContent);
+                bVal = parseFloat(b.cells[4].textContent);
+                break;
+        }
+
+        return currentSort.order === 'asc' 
+            ? aVal - bVal 
+            : bVal - aVal;
+    });
+
+    // 重新渲染表格
+    tbody.innerHTML = '';
+    rows.forEach((row, index) => {
+        //<!-- row.cells[0].textContent = index + 1; -->
+        row.className = '';
+        tbody.appendChild(row);
+    });
+}
+
+function updateSortIcons() {
+    document.querySelectorAll('.sort-icon').forEach((icon, index) => {
+        icon.textContent = currentSort.column === index 
+            ? currentSort.icons[index][currentSort.order]
+            : '';
+    });
+}
+</script>
+</body>
+</html>

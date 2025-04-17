@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>20230827 - 初赛 热身（30min）</title>
+    <style>
+        table { width: 80%; margin: 20px auto; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: center; border: 1px solid #ddd; }
+        th { background-color: #f5f5f5; cursor: pointer; position: relative; }
+        .top1 { background-color: #ffd700; }
+        .top2 { background-color: #c0c0c0; }
+        .top3 { background-color: #cd7f32; }
+        .positive { color: #19be6b; }
+        .negative { color: #ed4014; }
+        .none {color: #3c4858;}
+        .sort-icon { margin-left: 5px; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center">20230827 - 初赛 热身（30min）</h2>
+    <table>
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">排名<span class="sort-icon" id="icon0"></span></th>
+                <th onclick="sortTable(1)">姓名<span class="sort-icon" id="icon1"></span></th>
+                <th onclick="sortTable(2)">分数<span class="sort-icon" id="icon2"></span></th>
+                <th onclick="sortTable(3)">Rating<span class="sort-icon" id="icon3"></span></th>
+                <th onclick="sortTable(4)">Δ<span class="sort-icon" id="icon4"></span></th>
+            </tr>
+        </thead>
+        <tbody id="rankBody">
+            <tr><td>1</td><td>WangSiHan11</td><td>200</td><td>1175.07</td><td class="positive">+87.08</td></tr>
+<tr><td>1</td><td>ZhangZiChen</td><td>200</td><td>1215.66</td><td class="positive">+73.90</td></tr>
+<tr><td>1</td><td>LvWenHan</td><td>200</td><td>1217.13</td><td class="positive">+70.12</td></tr>
+<tr><td>1</td><td>YanLePeng</td><td>200</td><td>1240.95</td><td class="positive">+59.17</td></tr>
+<tr><td>1</td><td>ZhangSiZhe</td><td>200</td><td>1288.41</td><td class="positive">+41.49</td></tr>
+<tr><td>1</td><td>LiHaoQian</td><td>200</td><td>1290.36</td><td class="positive">+36.94</td></tr>
+<tr><td>1</td><td>ChengYuHe</td><td>200</td><td>1295.71</td><td class="positive">+30.35</td></tr>
+<tr><td>1</td><td>CaoRui</td><td>200</td><td>1298.69</td><td class="positive">+25.30</td></tr>
+<tr><td>1</td><td>LiuYuYang</td><td>200</td><td>1346.04</td><td class="positive">+8.89</td></tr>
+<tr><td>1</td><td>LiuJingYu</td><td>200</td><td>1497.03</td><td class="negative">-19.55</td></tr>
+<tr><td>1</td><td>ChenMeiYu</td><td>200</td><td>1497.99</td><td class="negative">-22.77</td></tr>
+<tr><td>1</td><td>LiYiZe09</td><td>200</td><td>1637.99</td><td class="negative">-44.96</td></tr>
+<tr><td>1</td><td>ZhangHuanGang</td><td>200</td><td>1714.03</td><td class="negative">-57.14</td></tr>
+<tr><td>14</td><td>GuWangHaoHao</td><td>180</td><td>1512.42</td><td class="negative">-83.03</td></tr>
+<tr><td>15</td><td>CaoZiHan</td><td>120</td><td>719.24</td><td class="negative">-20.23</td></tr>
+<tr><td>16</td><td>HuaYiKe</td><td>80</td><td>1179.85</td><td class="negative">-81.88</td></tr>
+<tr><td>16</td><td>LiangLuoChen</td><td>80</td><td>1322.27</td><td class="negative">-103.68</td></tr>
+
+        </tbody>
+    </table>
+
+<script>
+let currentSort = { 
+    column: 0, 
+    order: 'desc',
+    icons: Array.from({length:5}, () => ({asc: '', desc: ''}))
+};
+
+// 初始化默认排序图标配置
+currentSort.icons = [
+    {desc: '↓', asc: '↑'},   // 排名列图标方向相反（实际按分数排序）
+    {desc: '↓', asc: '↑'},   // 姓名列
+    {desc: '↓', asc: '↑'},   // 分数列
+    {desc: '↓', asc: '↑'},   // Rating列
+    {desc: '↓', asc: '↑'}    // Δ列
+];
+
+function sortTable(columnIndex) {
+    const tbody = document.getElementById('rankBody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    
+    // 更新排序状态和图标
+    if (currentSort.column === columnIndex) {
+        currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+    } else {
+        currentSort.column = columnIndex;
+        currentSort.order = getDefaultOrder(columnIndex);
+    }
+    updateSortIcons();
+
+    // 获取默认排序方向
+    function getDefaultOrder(index) {
+        return 'desc'; // 姓名列默认升序，其他降序
+    }
+
+    // 核心排序逻辑
+    rows.sort((a, b) => {
+        let aVal, bVal;
+        
+        switch(currentSort.column) {
+            case 0: // 排名（实际按分数）
+                aVal = parseInt(a.cells[2].textContent);
+                bVal = parseInt(b.cells[2].textContent);
+                break;
+            case 1: // 姓名
+                aVal = a.cells[1].textContent;
+                bVal = b.cells[1].textContent;
+                return currentSort.order === 'desc' 
+                    ? aVal.localeCompare(bVal) 
+                    : bVal.localeCompare(aVal);
+            case 2: // 分数
+                aVal = parseInt(a.cells[2].textContent);
+                bVal = parseInt(b.cells[2].textContent);
+                break;
+            case 3: // Rating
+                aVal = parseFloat(a.cells[3].textContent);
+                bVal = parseFloat(b.cells[3].textContent);
+                break;
+            case 4: // Δ
+                aVal = parseFloat(a.cells[4].textContent);
+                bVal = parseFloat(b.cells[4].textContent);
+                break;
+        }
+
+        return currentSort.order === 'asc' 
+            ? aVal - bVal 
+            : bVal - aVal;
+    });
+
+    // 重新渲染表格
+    tbody.innerHTML = '';
+    rows.forEach((row, index) => {
+        //<!-- row.cells[0].textContent = index + 1; -->
+        row.className = '';
+        tbody.appendChild(row);
+    });
+}
+
+function updateSortIcons() {
+    document.querySelectorAll('.sort-icon').forEach((icon, index) => {
+        icon.textContent = currentSort.column === index 
+            ? currentSort.icons[index][currentSort.order]
+            : '';
+    });
+}
+</script>
+</body>
+</html>

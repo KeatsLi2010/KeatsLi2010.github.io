@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟考试20200207</title>
+    <style>
+        table { width: 80%; margin: 20px auto; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: center; border: 1px solid #ddd; }
+        th { background-color: #f5f5f5; cursor: pointer; position: relative; }
+        .top1 { background-color: #ffd700; }
+        .top2 { background-color: #c0c0c0; }
+        .top3 { background-color: #cd7f32; }
+        .positive { color: #19be6b; }
+        .negative { color: #ed4014; }
+        .none {color: #3c4858;}
+        .sort-icon { margin-left: 5px; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center">模拟考试20200207</h2>
+    <table>
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">排名<span class="sort-icon" id="icon0"></span></th>
+                <th onclick="sortTable(1)">姓名<span class="sort-icon" id="icon1"></span></th>
+                <th onclick="sortTable(2)">分数<span class="sort-icon" id="icon2"></span></th>
+                <th onclick="sortTable(3)">Rating<span class="sort-icon" id="icon3"></span></th>
+                <th onclick="sortTable(4)">Δ<span class="sort-icon" id="icon4"></span></th>
+            </tr>
+        </thead>
+        <tbody id="rankBody">
+            <tr><td>1</td><td href="../allusers/liuqingze">liuqingze</td><td>400</td><td>1676.79</td><td class="positive">+82.01</td></tr>
+<tr><td>2</td><td href="../allusers/yangenhua">yangenhua</td><td>390</td><td>1580.93</td><td class="positive">+84.23</td></tr>
+<tr><td>2</td><td href="../allusers/LiXingCheng">LiXingCheng</td><td>390</td><td>1654.96</td><td class="positive">+70.81</td></tr>
+<tr><td>4</td><td href="../allusers/liqingyang">liqingyang</td><td>370</td><td>1661.83</td><td class="positive">+60.30</td></tr>
+<tr><td>5</td><td href="../allusers/liyichen">liyichen</td><td>365</td><td>1601.10</td><td class="positive">+60.02</td></tr>
+<tr><td>6</td><td href="../allusers/zhaochenyi">zhaochenyi</td><td>300</td><td>1559.82</td><td class="positive">+52.38</td></tr>
+<tr><td>6</td><td href="../allusers/LiuXiangLiang">LiuXiangLiang</td><td>300</td><td>1571.49</td><td class="positive">+47.89</td></tr>
+<tr><td>6</td><td href="../allusers/MeiZuMing">MeiZuMing</td><td>300</td><td>1581.38</td><td class="positive">+43.80</td></tr>
+<tr><td>9</td><td href="../allusers/sunyixiu">sunyixiu</td><td>270</td><td>1535.96</td><td class="positive">+36.62</td></tr>
+<tr><td>10</td><td href="../allusers/LiuLeYang">LiuLeYang</td><td>250</td><td>1531.03</td><td class="positive">+29.35</td></tr>
+<tr><td>11</td><td href="../allusers/zhangqian">zhangqian</td><td>230</td><td>1567.19</td><td class="positive">+17.02</td></tr>
+<tr><td>12</td><td href="../allusers/DongYiFei">DongYiFei</td><td>210</td><td>1445.73</td><td class="positive">+24.28</td></tr>
+<tr><td>13</td><td href="../allusers/ZhangZiTao">ZhangZiTao</td><td>200</td><td>1322.60</td><td class="positive">+25.30</td></tr>
+<tr><td>13</td><td href="../allusers/ZhangZiChao">ZhangZiChao</td><td>200</td><td>1339.34</td><td class="positive">+20.10</td></tr>
+<tr><td>13</td><td href="../allusers/ZhaoWenKai">ZhaoWenKai</td><td>200</td><td>1354.50</td><td class="positive">+15.14</td></tr>
+<tr><td>13</td><td href="../allusers/wangmingqian">wangmingqian</td><td>200</td><td>1560.62</td><td class="negative">-16.27</td></tr>
+<tr><td>17</td><td href="../allusers/weimingqi">weimingqi</td><td>190</td><td>1489.85</td><td class="negative">-19.84</td></tr>
+<tr><td>18</td><td href="../allusers/ZhouXing">ZhouXing</td><td>180</td><td>1332.19</td><td class="negative">-8.51</td></tr>
+<tr><td>19</td><td href="../allusers/chenguanheng">chenguanheng</td><td>170</td><td>1462.56</td><td class="negative">-32.13</td></tr>
+<tr><td>20</td><td href="../allusers/YuRui">YuRui</td><td>135</td><td>1475.90</td><td class="negative">-41.47</td></tr>
+<tr><td>21</td><td href="../allusers/luofangchen">luofangchen</td><td>130</td><td>1273.71</td><td class="negative">-26.20</td></tr>
+<tr><td>21</td><td href="../allusers/ZhaoXuTong">ZhaoXuTong</td><td>130</td><td>1349.49</td><td class="negative">-40.08</td></tr>
+<tr><td>23</td><td href="../allusers/FangShengHan">FangShengHan</td><td>100</td><td>1261.30</td><td class="negative">-38.60</td></tr>
+<tr><td>24</td><td href="../allusers/ZhaiHe">ZhaiHe</td><td>90</td><td>1192.72</td><td class="negative">-37.94</td></tr>
+<tr><td>25</td><td href="../allusers/PiAnTong">PiAnTong</td><td>70</td><td>1201.48</td><td class="negative">-46.88</td></tr>
+<tr><td>26</td><td href="../allusers/SuZhanYi">SuZhanYi</td><td>30</td><td>1116.97</td><td class="negative">-44.54</td></tr>
+<tr><td>27</td><td href="../allusers/WangXuanZe">WangXuanZe</td><td>0</td><td>1210.32</td><td class="negative">-69.91</td></tr>
+<tr><td>27</td><td href="../allusers/LiuPengBo">LiuPengBo</td><td>0</td><td>1224.57</td><td class="negative">-74.84</td></tr>
+<tr><td>27</td><td href="../allusers/liuhongya">liuhongya</td><td>0</td><td>1252.53</td><td class="negative">-82.48</td></tr>
+<tr><td>27</td><td href="../allusers/LiuHongZhen">LiuHongZhen</td><td>0</td><td>1279.55</td><td class="negative">-89.59</td></tr>
+
+        </tbody>
+    </table>
+
+<script>
+let currentSort = { 
+    column: 0, 
+    order: 'desc',
+    icons: Array.from({length:5}, () => ({asc: '', desc: ''}))
+};
+
+// 初始化默认排序图标配置
+currentSort.icons = [
+    {desc: '↓', asc: '↑'},   // 排名列图标方向相反（实际按分数排序）
+    {desc: '↓', asc: '↑'},   // 姓名列
+    {desc: '↓', asc: '↑'},   // 分数列
+    {desc: '↓', asc: '↑'},   // Rating列
+    {desc: '↓', asc: '↑'}    // Δ列
+];
+
+function sortTable(columnIndex) {
+    const tbody = document.getElementById('rankBody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    
+    // 更新排序状态和图标
+    if (currentSort.column === columnIndex) {
+        currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+    } else {
+        currentSort.column = columnIndex;
+        currentSort.order = getDefaultOrder(columnIndex);
+    }
+    updateSortIcons();
+
+    // 获取默认排序方向
+    function getDefaultOrder(index) {
+        return 'desc'; // 姓名列默认升序，其他降序
+    }
+
+    // 核心排序逻辑
+    rows.sort((a, b) => {
+        let aVal, bVal;
+        
+        switch(currentSort.column) {
+            case 0: // 排名（实际按分数）
+                aVal = parseInt(a.cells[2].textContent);
+                bVal = parseInt(b.cells[2].textContent);
+                break;
+            case 1: // 姓名
+                aVal = a.cells[1].textContent;
+                bVal = b.cells[1].textContent;
+                return currentSort.order === 'desc' 
+                    ? aVal.localeCompare(bVal) 
+                    : bVal.localeCompare(aVal);
+            case 2: // 分数
+                aVal = parseInt(a.cells[2].textContent);
+                bVal = parseInt(b.cells[2].textContent);
+                break;
+            case 3: // Rating
+                aVal = parseFloat(a.cells[3].textContent);
+                bVal = parseFloat(b.cells[3].textContent);
+                break;
+            case 4: // Δ
+                aVal = parseFloat(a.cells[4].textContent);
+                bVal = parseFloat(b.cells[4].textContent);
+                break;
+        }
+
+        return currentSort.order === 'asc' 
+            ? aVal - bVal 
+            : bVal - aVal;
+    });
+
+    // 重新渲染表格
+    tbody.innerHTML = '';
+    rows.forEach((row, index) => {
+        //<!-- row.cells[0].textContent = index + 1; -->
+        row.className = '';
+        tbody.appendChild(row);
+    });
+}
+
+function updateSortIcons() {
+    document.querySelectorAll('.sort-icon').forEach((icon, index) => {
+        icon.textContent = currentSort.column === index 
+            ? currentSort.icons[index][currentSort.order]
+            : '';
+    });
+}
+</script>
+</body>
+</html>

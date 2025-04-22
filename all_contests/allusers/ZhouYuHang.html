@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ZhouYuHang</title>
+    <style>
+        body { margin: 0; overflow: hidden; position: relative; }
+        #ratingCanvas { display: block; }
+        #tooltip {
+            position: absolute;
+            padding: 8px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border-radius: 4px;
+            pointer-events: none;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="ratingCanvas"></canvas>
+    <div id="tooltip"></div>
+
+    <script>
+        const ratingData = [
+            {time: 1624276800000, y: 0.373312, x: 0.000000, url: '../allcontests/7k07144.html', name: ' 0621模拟考试',rating: 1495.950000},
+{time: 1625749200000, y: 0.401850, x: 0.007634, url: '../allcontests/19kjuhe.html', name: ' 0705模拟考试',rating: 1564.440000},
+{time: 1625832000000, y: 0.412775, x: 0.015267, url: '../allcontests/qe6c7ph.html', name: ' 0709模拟考试',rating: 1590.660000},
+{time: 1629275400000, y: 0.444179, x: 0.022901, url: '../allcontests/i9eep0a.html', name: ' 模拟考试0818',rating: 1666.030000},
+{time: 1632141000000, y: 0.473629, x: 0.030534, url: '../allcontests/f160l02.html', name: ' 0920模拟考试',rating: 1736.710000},
+{time: 1632921300000, y: 0.480404, x: 0.038168, url: '../allcontests/clqfun3.html', name: ' 0929模拟考试',rating: 1752.970000},
+{time: 1633091400000, y: 0.509067, x: 0.045802, url: '../allcontests/3qq8m7f.html', name: ' 1001模拟考试',rating: 1810.880000},
+{time: 1634130900000, y: 0.506375, x: 0.053435, url: '../allcontests/edjrh27.html', name: ' 1013模拟考试',rating: 1807.650000},
+{time: 1637672400000, y: 0.489950, x: 0.061069, url: '../allcontests/3cjmij.html', name: ' 1123',rating: 1775.880000},
+{time: 1638075600000, y: 0.465237, x: 0.068702, url: '../allcontests/2nlqt07.html', name: ' 20211128模拟考试',rating: 1716.570000},
+{time: 1638680400000, y: 0.458754, x: 0.076336, url: '../allcontests/bjpvmk5.html', name: ' 20211205模拟考试',rating: 1701.010000},
+{time: 1639285200000, y: 0.442325, x: 0.083969, url: '../allcontests/g9mc0ui.html', name: ' 20211212模拟考试',rating: 1661.580000},
+{time: 1639890000000, y: 0.422083, x: 0.091603, url: '../allcontests/85j67br.html', name: ' 20211219模拟考试',rating: 1613.000000},
+{time: 1640494800000, y: 0.404329, x: 0.099237, url: '../allcontests/cfsudpp.html', name: ' 20211226模拟考试',rating: 1570.390000},
+{time: 1641186000000, y: 0.391638, x: 0.106870, url: '../allcontests/a5tpqbu.html', name: ' 20210103模拟考试',rating: 1539.930000},
+{time: 1642221000000, y: 0.408208, x: 0.114504, url: '../allcontests/arrajp3.html', name: ' 0115模拟考试',rating: 1579.700000},
+{time: 1642309200000, y: 0.431729, x: 0.122137, url: '../allcontests/2dl39f0.html', name: ' 0116模拟考试',rating: 1636.150000},
+{time: 1642482000000, y: 0.401675, x: 0.129771, url: '../allcontests/ljh46cn.html', name: ' 0118模拟考试',rating: 1564.020000},
+{time: 1642568400000, y: 0.369646, x: 0.137405, url: '../allcontests/d4236rf.html', name: ' 0119模拟考试',rating: 1487.150000},
+{time: 1642741200000, y: 0.334746, x: 0.145038, url: '../allcontests/39o0shd.html', name: ' 0121模拟考试',rating: 1403.390000},
+{time: 1644555600000, y: 0.317133, x: 0.152672, url: '../allcontests/3bg0bd7.html', name: ' 0211模拟考试',rating: 1341.680000},
+{time: 1644642000000, y: 0.323931, x: 0.160305, url: '../allcontests/47tbbaj.html', name: ' 0212模拟考试',rating: 1366.150000},
+{time: 1644814800000, y: 0.337654, x: 0.167939, url: '../allcontests/pubj1uh.html', name: ' 0214模拟考试',rating: 1410.370000},
+{time: 1644987600000, y: 0.347037, x: 0.175573, url: '../allcontests/rmubj9t.html', name: ' 0216模拟考试',rating: 1432.890000},
+{time: 1645160400000, y: 0.375675, x: 0.183206, url: '../allcontests/hr3hu31.html', name: ' 0218模拟考试',rating: 1501.620000},
+{time: 1645246800000, y: 0.367529, x: 0.190840, url: '../allcontests/s7env15.html', name: ' 0219模拟考试',rating: 1482.070000},
+{time: 1645794000000, y: 0.384308, x: 0.198473, url: '../allcontests/ko0csuv.html', name: ' 模拟考试0817',rating: 1522.340000},
+{time: 1652963400000, y: 0.418592, x: 0.206107, url: '../allcontests/fusgjj0.html', name: ' 0519模拟考试',rating: 1604.620000},
+{time: 1653570000000, y: 0.395487, x: 0.213740, url: '../allcontests/afemhdb.html', name: ' 0526模拟考试',rating: 1549.170000},
+{time: 1654777800000, y: 0.370962, x: 0.221374, url: '../allcontests/escmvg9.html', name: ' 0609模拟考试',rating: 1490.310000},
+{time: 1656133200000, y: 0.400883, x: 0.229008, url: '../allcontests/ppsmhde.html', name: ' 0625模拟考试',rating: 1562.120000},
+{time: 1657359160000, y: 0.430937, x: 0.236641, url: '../allcontests/ppgjvrr.html', name: ' 0709模拟考试',rating: 1634.250000},
+{time: 1657512000000, y: 0.436587, x: 0.244275, url: '../allcontests/cs9ri36.html', name: ' 0711模拟考试',rating: 1647.810000},
+{time: 1657629000000, y: 0.455775, x: 0.251908, url: '../allcontests/2h59cj6.html', name: ' 0712模拟考试',rating: 1693.860000},
+{time: 1657684800000, y: 0.459396, x: 0.259542, url: '../allcontests/4ppmkmc.html', name: ' 0713模拟考试',rating: 1702.550000},
+{time: 1657857600000, y: 0.454533, x: 0.267176, url: '../allcontests/1aa8siu.html', name: ' 0715模拟考试',rating: 1690.880000},
+{time: 1657944000000, y: 0.479387, x: 0.274809, url: '../allcontests/k47m80k.html', name: ' 0716模拟考试',rating: 1750.530000},
+{time: 1658030400000, y: 0.509517, x: 0.282443, url: '../allcontests/ncuv3ns.html', name: ' 0717模拟考试',rating: 1811.420000},
+{time: 1658203200000, y: 0.474412, x: 0.290076, url: '../allcontests/snlloib.html', name: ' 0719模拟考试',rating: 1738.590000},
+{time: 1658289600000, y: 0.504383, x: 0.297710, url: '../allcontests/hn3qvk5.html', name: ' 0720模拟考试',rating: 1805.260000},
+{time: 1658462400000, y: 0.537092, x: 0.305344, url: '../allcontests/7f27ipm.html', name: ' 0722模拟考试',rating: 1844.510000},
+{time: 1658548800000, y: 0.517683, x: 0.312977, url: '../allcontests/h5ifnoj.html', name: ' 0723模拟考试',rating: 1821.220000},
+{time: 1658721600000, y: 0.530892, x: 0.320611, url: '../allcontests/9ge276g.html', name: ' 0725',rating: 1837.070000},
+{time: 1658808000000, y: 0.482163, x: 0.328244, url: '../allcontests/umqaqh.html', name: ' 0726模拟考试',rating: 1757.190000},
+{time: 1658980800000, y: 0.518108, x: 0.335878, url: '../allcontests/1rmlme8.html', name: ' 0728模拟考试',rating: 1821.730000},
+{time: 1659067200000, y: 0.560975, x: 0.343511, url: '../allcontests/g826ncf.html', name: ' 0729模拟考试',rating: 1873.170000},
+{time: 1659240000000, y: 0.543583, x: 0.351145, url: '../allcontests/i6lvmgh.html', name: ' 0731模拟考试',rating: 1852.300000},
+{time: 1659326400000, y: 0.576542, x: 0.358779, url: '../allcontests/p50c5f4.html', name: ' 0801模拟考试',rating: 1891.850000},
+{time: 1662177600000, y: 0.619783, x: 0.366412, url: '../allcontests/lp5koc5.html', name: ' 0902模拟考试',rating: 1943.740000},
+{time: 1662955200000, y: 0.660350, x: 0.374046, url: '../allcontests/qfl37l8.html', name: ' 0912模拟考试',rating: 1992.420000},
+{time: 1663993800000, y: 0.673310, x: 0.381679, url: '../allcontests/ah1jjrg.html', name: ' 0924模拟考试',rating: 2019.930000},
+{time: 1664598600000, y: 0.674157, x: 0.389313, url: '../allcontests/4u14pq8.html', name: ' 1001模拟考试',rating: 2022.470000},
+{time: 1664685000000, y: 0.688810, x: 0.396947, url: '../allcontests/smc735o.html', name: ' 1002模拟考试',rating: 2066.430000},
+{time: 1664856000000, y: 0.688610, x: 0.404580, url: '../allcontests/92g17js.html', name: ' 1004模拟考试',rating: 2065.830000},
+{time: 1664942400000, y: 0.705357, x: 0.412214, url: '../allcontests/paj2bqj.html', name: ' 1005模拟考试',rating: 2116.070000},
+{time: 1665115200000, y: 0.708080, x: 0.419847, url: '../allcontests/im0dajh.html', name: ' 1007模拟考试',rating: 2124.240000},
+{time: 1665806400000, y: 0.721967, x: 0.427481, url: '../allcontests/6q9s4gs.html', name: ' 1015模拟考试',rating: 2165.900000},
+{time: 1666152000000, y: 0.697953, x: 0.435115, url: '../allcontests/a1t9e2b.html', name: ' 1019模拟考试',rating: 2093.860000},
+{time: 1666411200000, y: 0.682887, x: 0.442748, url: '../allcontests/4dq5o1q.html', name: ' 1022模拟考试',rating: 2048.660000},
+{time: 1666497600000, y: 0.706870, x: 0.450382, url: '../allcontests/1cmeh45.html', name: ' 1023模拟考试',rating: 2120.610000},
+{time: 1666670400000, y: 0.729967, x: 0.458015, url: '../allcontests/ivnfp5h.html', name: ' 1025模拟考试',rating: 2189.900000},
+{time: 1666866600000, y: 0.725413, x: 0.465649, url: '../allcontests/m7gjejb.html', name: ' 1027模拟考试',rating: 2176.240000},
+{time: 1667534400000, y: 0.703897, x: 0.473282, url: '../allcontests/2i1jap4.html', name: ' 1104模拟考试',rating: 2111.690000},
+{time: 1667793600000, y: 0.728453, x: 0.480916, url: '../allcontests/dqkr18b.html', name: ' 1107模拟考试',rating: 2185.360000},
+{time: 1667880000000, y: 0.721153, x: 0.488550, url: '../allcontests/pbb3rnu.html', name: ' 1108模拟考试',rating: 2163.460000},
+{time: 1668052800000, y: 0.730000, x: 0.496183, url: '../allcontests/1kuvis4.html', name: ' 1110模拟考试',rating: 2190.000000},
+{time: 1668139200000, y: 0.718780, x: 0.503817, url: '../allcontests/nipsk42.html', name: ' 1111模拟考试',rating: 2156.340000},
+{time: 1668312000000, y: 0.748007, x: 0.511450, url: '../allcontests/hqkep09.html', name: ' 1113模拟考试',rating: 2244.020000},
+{time: 1668398400000, y: 0.724457, x: 0.519084, url: '../allcontests/q2lau9e.html', name: ' 1114模拟考试',rating: 2173.370000},
+{time: 1668571200000, y: 0.706750, x: 0.526718, url: '../allcontests/srg1dhc.html', name: ' 1116模拟考试',rating: 2120.250000},
+{time: 1668657600000, y: 0.706833, x: 0.534351, url: '../allcontests/9u9ik8f.html', name: ' 1117模拟考试',rating: 2120.500000},
+{time: 1668830400000, y: 0.709033, x: 0.541985, url: '../allcontests/6ctqss0.html', name: ' 1119模拟考试',rating: 2127.100000},
+{time: 1668916800000, y: 0.705897, x: 0.549618, url: '../allcontests/kthso2u.html', name: ' 1120模拟考试',rating: 2117.690000},
+{time: 1669089600000, y: 0.687017, x: 0.557252, url: '../allcontests/n0gk3t2.html', name: ' 1122模拟考试',rating: 2061.050000},
+{time: 1669262400000, y: 0.711360, x: 0.564885, url: '../allcontests/8otv8l.html', name: ' 1124模拟考试',rating: 2134.080000},
+{time: 1670040000000, y: 0.692477, x: 0.572519, url: '../allcontests/iq4kqvd.html', name: ' 1203模拟考试',rating: 2077.430000},
+{time: 1670731200000, y: 0.708643, x: 0.580153, url: '../allcontests/3le4ok3.html', name: ' 1211模拟考试',rating: 2125.930000},
+{time: 1671249600000, y: 0.722020, x: 0.587786, url: '../allcontests/9lirj7v.html', name: ' 1217模拟考试',rating: 2166.060000},
+{time: 1671854400000, y: 0.734143, x: 0.595420, url: '../allcontests/e4ama33.html', name: ' 1224模拟考试',rating: 2202.430000},
+{time: 1675137600000, y: 0.709220, x: 0.603053, url: '../allcontests/agmui98.html', name: ' 0131模拟考试',rating: 2127.660000},
+{time: 1675310400000, y: 0.738007, x: 0.610687, url: '../allcontests/2sf6dat.html', name: ' 0202模拟考试',rating: 2214.020000},
+{time: 1675483200000, y: 0.766417, x: 0.618321, url: '../allcontests/656i9n.html', name: ' 0204模拟考试',rating: 2299.250000},
+{time: 1675828800000, y: 0.742417, x: 0.625954, url: '../allcontests/480101m.html', name: ' 0208模拟考试',rating: 2227.250000},
+{time: 1676088000000, y: 0.730670, x: 0.633588, url: '../allcontests/tp10hn3.html', name: ' 0211模拟考试',rating: 2192.010000},
+{time: 1676692800000, y: 0.763283, x: 0.641221, url: '../allcontests/edre7a.html', name: ' 0218模拟考试',rating: 2289.850000},
+{time: 1677038400000, y: 0.744303, x: 0.648855, url: '../allcontests/7mbih2.html', name: ' 0222模拟考试',rating: 2232.910000},
+{time: 1677297600000, y: 0.712563, x: 0.656489, url: '../allcontests/npulhev.html', name: ' 0225模拟考试',rating: 2137.690000},
+{time: 1677643200000, y: 0.709967, x: 0.664122, url: '../allcontests/8bp4of4.html', name: ' 0301模拟考试',rating: 2129.900000},
+{time: 1678798800000, y: 0.690173, x: 0.671756, url: '../allcontests/m336vmf.html', name: ' 2023NOI春季赛',rating: 2070.520000},
+{time: 1679716800000, y: 0.682087, x: 0.679389, url: '../allcontests/59j2jv.html', name: ' 0325',rating: 2046.260000},
+{time: 1692261000000, y: 0.694923, x: 0.687023, url: '../allcontests/hsdd8au.html', name: ' 0817',rating: 2084.770000},
+{time: 1692347400000, y: 0.692803, x: 0.694656, url: '../allcontests/mnvv1m8.html', name: ' 0818',rating: 2078.410000},
+{time: 1692520200000, y: 0.708053, x: 0.702290, url: '../allcontests/4lgr1nm.html', name: ' 0820',rating: 2124.160000},
+{time: 1694232000000, y: 0.716197, x: 0.709924, url: '../allcontests/ll4v6s3.html', name: ' 0909',rating: 2148.590000},
+{time: 1696480200000, y: 0.724283, x: 0.717557, url: '../allcontests/g2psqha.html', name: ' 1005',rating: 2172.850000},
+{time: 1698379200000, y: 0.728053, x: 0.725191, url: '../allcontests/r2ujs70.html', name: ' 1027模拟考试',rating: 2184.160000},
+{time: 1702699200000, y: 0.710787, x: 0.732824, url: '../allcontests/nbm404b.html', name: ' 20231216模拟考试',rating: 2132.360000},
+{time: 1703493000000, y: 0.691077, x: 0.740458, url: '../allcontests/u7rmn8m.html', name: ' 1225模拟考试',rating: 2073.230000},
+{time: 1703649600000, y: 0.714970, x: 0.748092, url: '../allcontests/eqkb46a.html', name: ' 1227模拟考试',rating: 2144.910000},
+{time: 1703752200000, y: 0.686937, x: 0.755725, url: '../allcontests/daucb2p.html', name: ' 1228模拟考试',rating: 2060.810000},
+{time: 1704192759000, y: 0.687007, x: 0.763359, url: '../allcontests/menmnhs.html', name: ' 元旦模拟考试',rating: 2061.020000},
+{time: 1704513600000, y: 0.711290, x: 0.770992, url: '../allcontests/eg9rlpt.html', name: ' 0102模拟考试',rating: 2133.870000},
+{time: 1704513600000, y: 0.733427, x: 0.778626, url: '../allcontests/iifvo48.html', name: ' 0104模拟考试',rating: 2200.280000},
+{time: 1710561600000, y: 0.746250, x: 0.786260, url: '../allcontests/rqmqp3g.html', name: ' 0316模拟考试',rating: 2238.750000},
+{time: 1711166400000, y: 0.754287, x: 0.793893, url: '../allcontests/j0ghisi.html', name: ' 0323模拟考试',rating: 2262.860000},
+{time: 1714190400000, y: 0.758260, x: 0.801527, url: '../allcontests/cabfiso.html', name: ' 0427模拟考试',rating: 2274.780000},
+{time: 1715745600000, y: 0.763120, x: 0.809160, url: '../allcontests/8qvlmoc.html', name: ' 0515练习(401)',rating: 2289.360000},
+{time: 1716262200000, y: 0.751923, x: 0.816794, url: '../allcontests/sd8arct.html', name: ' 20240521模拟考试',rating: 2255.770000},
+{time: 1716348600000, y: 0.781377, x: 0.824427, url: '../allcontests/ai4b7nc.html', name: ' 20240522模拟考试',rating: 2344.130000},
+{time: 1716780600000, y: 0.760777, x: 0.832061, url: '../allcontests/bnh40c8.html', name: ' 20240527模拟考试',rating: 2282.330000},
+{time: 1716953400000, y: 0.780760, x: 0.839695, url: '../allcontests/l06tke2.html', name: ' 20240529模拟考试',rating: 2342.280000},
+{time: 1717126200000, y: 0.760840, x: 0.847328, url: '../allcontests/tv0rm7u.html', name: ' 20240531模拟考试',rating: 2282.520000},
+{time: 1726372800000, y: 0.774293, x: 0.854962, url: '../allcontests/ri8qang.html', name: ' 0915模拟考试',rating: 2322.880000},
+{time: 1742013000000, y: 0.741887, x: 0.862595, url: '../allcontests/qc1sf94.html', name: ' 0314模拟考试',rating: 2225.660000},
+{time: 1742617800000, y: 0.757450, x: 0.870229, url: '../allcontests/ne79i3d.html', name: ' 0322',rating: 2272.350000},
+{time: 1743222600000, y: 0.754363, x: 0.877863, url: '../allcontests/92vmvkq.html', name: ' 0329',rating: 2263.090000},
+{time: 1743393600000, y: 0.776600, x: 0.885496, url: '../allcontests/7vujjaf.html', name: ' 0331',rating: 2329.800000},
+{time: 1743652800000, y: 0.795110, x: 0.893130, url: '../allcontests/bbmkoh8.html', name: ' 0402',rating: 2385.330000},
+{time: 1743913800000, y: 0.771330, x: 0.900763, url: '../allcontests/ck4oim2.html', name: ' 0406',rating: 2313.990000},
+{time: 1744084800000, y: 0.755520, x: 0.908397, url: '../allcontests/6uscpsi.html', name: ' 0408',rating: 2266.560000},
+{time: 1744257600000, y: 0.770653, x: 0.916031, url: '../allcontests/49jd97e.html', name: ' 0410',rating: 2311.960000},
+
+        ];
+
+        // 数据预处理 [[8]]
+        ratingData.sort((a, b) => a.time - b.time);
+        const minTime = Math.min(...ratingData.map(d => d.time));
+        const maxTime = Math.max(...ratingData.map(d => d.time));
+
+        const canvas = document.getElementById('ratingCanvas');
+        const ctx = canvas.getContext('2d');
+        const tooltip = document.getElementById('tooltip');
+        let canvasWidth, canvasHeight;
+
+        function resizeCanvas() {
+            canvasWidth = window.innerWidth;
+            canvasHeight = window.innerHeight * 0.6;
+            canvas.width = canvasWidth * devicePixelRatio;
+            canvas.height = canvasHeight * devicePixelRatio;
+            canvas.style.width = `${canvasWidth}px`;
+            canvas.style.height = `${canvasHeight}px`;
+            ctx.scale(devicePixelRatio, devicePixelRatio);
+            draw();
+        }
+        function draw() {
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            const segments = 6;
+            const segmentHeight = canvasHeight / segments;
+            const colors = ["#fe4c61","#ffc116","#52c41a","#5cdbd3","#3498db","#9c1d19"];
+            const ratings= [0,800,1400,1800,2000,2500,3500];
+            colors.forEach((color, index) => {
+                index=5-index;
+                ctx.fillStyle = color;
+                ctx.fillRect(
+                    0, 
+                    canvasHeight - (index + 1) * segmentHeight,
+                    canvasWidth,
+                    segmentHeight
+                );
+            });
+
+            // 绘制坐标轴 [[4]]
+            const axisMargin = 40; // 左侧纵坐标边距
+            ctx.strokeStyle = '#666';
+            
+            // 绘制左侧纵坐标轴
+            ctx.beginPath();
+            ctx.moveTo(axisMargin, 0);
+            ctx.lineTo(axisMargin, canvasHeight);
+            ctx.stroke();
+
+            // 绘制底部横坐标轴
+            ctx.beginPath();
+            ctx.moveTo(axisMargin, canvasHeight-0.5);
+            ctx.lineTo(canvasWidth, canvasHeight-0.5);
+            ctx.stroke();
+
+            // 绘制纵坐标标签和刻度
+            ctx.fillStyle = '#666';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            
+            const maxValue = 100;
+            const minValue = 0;
+            const step = (maxValue - minValue) / segments;
+            
+            for(let i = 0; i <= segments; i++) {
+                const y = canvasHeight - (i * segmentHeight);
+                
+                // 绘制刻度线
+                ctx.beginPath();
+                ctx.moveTo(axisMargin - 5, y);
+                ctx.lineTo(axisMargin, y);
+                ctx.stroke();
+                
+                // 绘制标签
+                ctx.fillText(ratings[i], axisMargin - 8, y + 4);
+            }
+            var lstyear="114514",lstmonth="1919810";
+            ratingData.forEach(data => {
+                const x = data.x*canvasWidth;
+                ctx.beginPath();
+                ctx.moveTo(x, canvasHeight);
+                ctx.lineTo(x, canvasHeight + 5);
+                ctx.stroke();
+                const date = new Date(data.time);
+                ctx.fillStyle = "#333";
+                ctx.font = "12px Arial";
+                ctx.textAlign = "center";
+                var year=String(date.getFullYear());
+                if(year!=lstyear){
+                    ctx.fillText(
+                        year+"年",
+                        x,
+                        canvasHeight - 5
+                    );
+                }else{
+                    var month=String(date.getMonth()+1).padStart(2, '0');
+                    if(month!=lstmonth){
+                        ctx.fillText(
+                            month+"月",
+                            x,
+                            canvasHeight - 5
+                        );
+                    }
+                }
+                lstmonth=month,lstyear=year;
+            });
+
+            // 绘制数据折线
+            ctx.beginPath();
+            ctx.lineWidth = 2;
+            ratingData.forEach((point, index) => {
+                const x = point.x*canvasWidth;
+                const y = canvasHeight - point.y * canvasHeight;
+                point._x = x;
+                point._y = y;
+
+                if (index === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+
+            const lineGradient = ctx.createLinearGradient(0, 0, canvasWidth, 0);
+            lineGradient.addColorStop(0, '#00008B');
+            lineGradient.addColorStop(1, '#E0FFFF');
+            ctx.strokeStyle = lineGradient;
+            ctx.stroke();
+
+            // 绘制数据点和标注（保持原有逻辑）
+            ratingData.forEach(point => {
+                const x = point.x*canvasWidth;
+                const y = canvasHeight - point.y * canvasHeight;
+                
+                ctx.beginPath();
+                ctx.fillStyle = "#66CCFF";
+                ctx.arc(x, y, 5, 0, Math.PI*2);
+                ctx.fill();
+                
+                ctx.fillStyle = "#00008B";
+            });
+        }
+
+        // 保持原有事件处理逻辑
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            let hoverPoint = null;
+            for (const point of ratingData) {
+                const dx = mouseX - point._x;
+                const dy = mouseY - point._y;
+                if (Math.hypot(dx, dy) < 12) {
+                    hoverPoint = point;
+                    break;
+                }
+            }
+
+            tooltip.style.display = hoverPoint ? 'block' : 'none';
+            if (hoverPoint) {
+                tooltip.style.left = `${e.pageX + 10}px`;
+                tooltip.style.top = `${e.pageY + 10}px`;
+                tooltip.textContent = "rating: "+parseInt(hoverPoint.rating)+hoverPoint.name;
+            }
+        });
+
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            ratingData.some(point => {
+                const dx = x - point._x;
+                const dy = y - point._y;
+                if (Math.hypot(dx, dy) < 12) {
+                    window.open(point.url, '_blank');
+                    return true;
+                }
+            });
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>0728模拟考试</title>
+    <style>
+        table { width: 80%; margin: 20px auto; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: center; border: 1px solid #ddd; }
+        th { background-color: #f5f5f5; cursor: pointer; position: relative; }
+        .top1 { background-color: #ffd700; }
+        .top2 { background-color: #c0c0c0; }
+        .top3 { background-color: #cd7f32; }
+        .positive { color: #19be6b; }
+        .negative { color: #ed4014; }
+        .none {color: #3c4858;}
+        .sort-icon { margin-left: 5px; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center">0728模拟考试</h2>
+    <table>
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">排名<span class="sort-icon" id="icon0"></span></th>
+                <th onclick="sortTable(1)">姓名<span class="sort-icon" id="icon1"></span></th>
+                <th onclick="sortTable(2)">分数<span class="sort-icon" id="icon2"></span></th>
+                <th onclick="sortTable(3)">Rating<span class="sort-icon" id="icon3"></span></th>
+                <th onclick="sortTable(4)">Δ<span class="sort-icon" id="icon4"></span></th>
+            </tr>
+        </thead>
+        <tbody id="rankBody">
+            <tr><td>1</td><td href="../allusers/KanZiChun">KanZiChun</td><td>190</td><td>2079.87</td><td class="positive">+54.10</td></tr>
+<tr><td>2</td><td href="../allusers/ZhouYuHang">ZhouYuHang</td><td>141</td><td>1821.73</td><td class="positive">+64.54</td></tr>
+<tr><td>3</td><td href="../allusers/LiNingYuan">LiNingYuan</td><td>136</td><td>2242.17</td><td class="positive">+17.28</td></tr>
+<tr><td>4</td><td href="../allusers/LiuXiangLiang">LiuXiangLiang</td><td>102</td><td>1430.43</td><td class="positive">+79.19</td></tr>
+<tr><td>5</td><td href="../allusers/weimingqi">weimingqi</td><td>71</td><td>2142.64</td><td class="positive">+1.70</td></tr>
+<tr><td>6</td><td href="../allusers/ZhangChengHao">ZhangChengHao</td><td>70</td><td>1999.98</td><td class="negative">-0.03</td></tr>
+<tr><td>7</td><td href="../allusers/LiXingCheng">LiXingCheng</td><td>55</td><td>1572.08</td><td class="positive">+30.69</td></tr>
+<tr><td>8</td><td href="../allusers/LiJiCi">LiJiCi</td><td>52</td><td>1365.95</td><td class="positive">+33.81</td></tr>
+<tr><td>8</td><td href="../allusers/JiaZiXin">JiaZiXin</td><td>52</td><td>1420.41</td><td class="positive">+21.48</td></tr>
+<tr><td>8</td><td href="../allusers/ZhuLiXing">ZhuLiXing</td><td>52</td><td>1603.17</td><td class="negative">-6.86</td></tr>
+<tr><td>11</td><td href="../allusers/ShiYunHao">ShiYunHao</td><td>51</td><td>1224.95</td><td class="positive">+11.34</td></tr>
+<tr><td>11</td><td href="../allusers/DongYiXuan">DongYiXuan</td><td>51</td><td>1294.35</td><td class="negative">-2.40</td></tr>
+<tr><td>13</td><td href="../allusers/WangSiHan11">WangSiHan11</td><td>50</td><td>1117.07</td><td class="negative">-11.06</td></tr>
+<tr><td>13</td><td href="../allusers/HuangJinYang">HuangJinYang</td><td>50</td><td>1193.21</td><td class="negative">-26.33</td></tr>
+<tr><td>13</td><td href="../allusers/HuaDe">HuaDe</td><td>50</td><td>1218.13</td><td class="negative">-34.52</td></tr>
+<tr><td>13</td><td href="../allusers/CaiZhiXun">CaiZhiXun</td><td>50</td><td>1450.44</td><td class="negative">-66.07</td></tr>
+<tr><td>13</td><td href="../allusers/WangYuZe">WangYuZe</td><td>50</td><td>1885.94</td><td class="negative">-101.87</td></tr>
+<tr><td>18</td><td href="../allusers/HuangWenHao">HuangWenHao</td><td>0</td><td>1139.38</td><td class="negative">-65.00</td></tr>
+
+        </tbody>
+    </table>
+
+<script>
+let currentSort = { 
+    column: 0, 
+    order: 'desc',
+    icons: Array.from({length:5}, () => ({asc: '', desc: ''}))
+};
+
+// 初始化默认排序图标配置
+currentSort.icons = [
+    {desc: '↓', asc: '↑'},   // 排名列图标方向相反（实际按分数排序）
+    {desc: '↓', asc: '↑'},   // 姓名列
+    {desc: '↓', asc: '↑'},   // 分数列
+    {desc: '↓', asc: '↑'},   // Rating列
+    {desc: '↓', asc: '↑'}    // Δ列
+];
+
+function sortTable(columnIndex) {
+    const tbody = document.getElementById('rankBody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    
+    // 更新排序状态和图标
+    if (currentSort.column === columnIndex) {
+        currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+    } else {
+        currentSort.column = columnIndex;
+        currentSort.order = getDefaultOrder(columnIndex);
+    }
+    updateSortIcons();
+
+    // 获取默认排序方向
+    function getDefaultOrder(index) {
+        return 'desc'; // 姓名列默认升序，其他降序
+    }
+
+    // 核心排序逻辑
+    rows.sort((a, b) => {
+        let aVal, bVal;
+        
+        switch(currentSort.column) {
+            case 0: // 排名（实际按分数）
+                aVal = parseInt(a.cells[2].textContent);
+                bVal = parseInt(b.cells[2].textContent);
+                break;
+            case 1: // 姓名
+                aVal = a.cells[1].textContent;
+                bVal = b.cells[1].textContent;
+                return currentSort.order === 'desc' 
+                    ? aVal.localeCompare(bVal) 
+                    : bVal.localeCompare(aVal);
+            case 2: // 分数
+                aVal = parseInt(a.cells[2].textContent);
+                bVal = parseInt(b.cells[2].textContent);
+                break;
+            case 3: // Rating
+                aVal = parseFloat(a.cells[3].textContent);
+                bVal = parseFloat(b.cells[3].textContent);
+                break;
+            case 4: // Δ
+                aVal = parseFloat(a.cells[4].textContent);
+                bVal = parseFloat(b.cells[4].textContent);
+                break;
+        }
+
+        return currentSort.order === 'asc' 
+            ? aVal - bVal 
+            : bVal - aVal;
+    });
+
+    // 重新渲染表格
+    tbody.innerHTML = '';
+    rows.forEach((row, index) => {
+        //<!-- row.cells[0].textContent = index + 1; -->
+        row.className = '';
+        tbody.appendChild(row);
+    });
+}
+
+function updateSortIcons() {
+    document.querySelectorAll('.sort-icon').forEach((icon, index) => {
+        icon.textContent = currentSort.column === index 
+            ? currentSort.icons[index][currentSort.order]
+            : '';
+    });
+}
+</script>
+</body>
+</html>

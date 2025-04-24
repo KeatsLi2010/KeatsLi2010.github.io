@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>1001模拟考试</title>
+    <style>
+        table { width: 80%; margin: 20px auto; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: center; border: 1px solid #ddd; }
+        th { background-color: #f5f5f5; cursor: pointer; position: relative; }
+        .top1 { background-color: #ffd700; }
+        .top2 { background-color: #c0c0c0; }
+        .top3 { background-color: #cd7f32; }
+        .positive { color: #19be6b; }
+        .negative { color: #ed4014; }
+        .none {color: #3c4858;}
+        .sort-icon { margin-left: 5px; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center">1001模拟考试</h2>
+    <table>
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">排名<span class="sort-icon" id="icon0"></span></th>
+                <th onclick="sortTable(1)">姓名<span class="sort-icon" id="icon1"></span></th>
+                <th onclick="sortTable(2)">分数<span class="sort-icon" id="icon2"></span></th>
+                <th onclick="sortTable(3)">Rating<span class="sort-icon" id="icon3"></span></th>
+                <th onclick="sortTable(4)">Δ<span class="sort-icon" id="icon4"></span></th>
+            </tr>
+        </thead>
+        <tbody id="rankBody">
+            <tr><td>1</td><td href="../allusers/XuHaoBo">XuHaoBo</td><td>200</td><td>1447.33</td><td class="positive">+107.11</td></tr>
+<tr><td>1</td><td href="../allusers/SunJiaLe">SunJiaLe</td><td>200</td><td>1648.64</td><td class="positive">+82.46</td></tr>
+<tr><td>3</td><td href="../allusers/ZhouYuHang">ZhouYuHang</td><td>143</td><td>1810.88</td><td class="positive">+57.90</td></tr>
+<tr><td>4</td><td href="../allusers/LiJiCi">LiJiCi</td><td>136</td><td>1511.86</td><td class="positive">+89.29</td></tr>
+<tr><td>4</td><td href="../allusers/ZhangXuanHeng">ZhangXuanHeng</td><td>136</td><td>1719.46</td><td class="positive">+61.65</td></tr>
+<tr><td>6</td><td href="../allusers/WangWeiZhen">WangWeiZhen</td><td>126</td><td>1666.55</td><td class="positive">+61.25</td></tr>
+<tr><td>6</td><td href="../allusers/JuJiChang">JuJiChang</td><td>126</td><td>1687.34</td><td class="positive">+56.95</td></tr>
+<tr><td>6</td><td href="../allusers/XieJingChen">XieJingChen</td><td>126</td><td>1727.56</td><td class="positive">+49.85</td></tr>
+<tr><td>9</td><td href="../allusers/GaoDongChen">GaoDongChen</td><td>110</td><td>1470.40</td><td class="positive">+75.07</td></tr>
+<tr><td>10</td><td href="../allusers/ZhangShuoYuan">ZhangShuoYuan</td><td>106</td><td>1375.39</td><td class="positive">+72.86</td></tr>
+<tr><td>10</td><td href="../allusers/JinChengYi1">JinChengYi1</td><td>106</td><td>1381.62</td><td class="positive">+71.05</td></tr>
+<tr><td>10</td><td href="../allusers/LiHaoLin">LiHaoLin</td><td>106</td><td>1441.53</td><td class="positive">+60.75</td></tr>
+<tr><td>10</td><td href="../allusers/ZhouLeDa">ZhouLeDa</td><td>106</td><td>1443.70</td><td class="positive">+59.57</td></tr>
+<tr><td>10</td><td href="../allusers/ZhangHuanGang">ZhangHuanGang</td><td>106</td><td>1465.75</td><td class="positive">+54.30</td></tr>
+<tr><td>10</td><td href="../allusers/chenzhuo">chenzhuo</td><td>106</td><td>1477.77</td><td class="positive">+50.64</td></tr>
+<tr><td>10</td><td href="../allusers/GaiRuiEn">GaiRuiEn</td><td>106</td><td>1477.77</td><td class="positive">+50.18</td></tr>
+<tr><td>10</td><td href="../allusers/LuWeiCheng">LuWeiCheng</td><td>106</td><td>1497.67</td><td class="positive">+45.10</td></tr>
+<tr><td>10</td><td href="../allusers/HuaKangYi">HuaKangYi</td><td>106</td><td>1540.00</td><td class="positive">+37.01</td></tr>
+<tr><td>10</td><td href="../allusers/HuangJinYang">HuangJinYang</td><td>106</td><td>1656.69</td><td class="positive">+19.69</td></tr>
+<tr><td>20</td><td href="../allusers/ZangGuiWei">ZangGuiWei</td><td>103</td><td>1452.74</td><td class="positive">+32.12</td></tr>
+<tr><td>20</td><td href="../allusers/chengzimo">chengzimo</td><td>103</td><td>1547.62</td><td class="positive">+18.81</td></tr>
+<tr><td>22</td><td href="../allusers/ChenYuXiang">ChenYuXiang</td><td>100</td><td>1233.62</td><td class="positive">+23.38</td></tr>
+<tr><td>22</td><td href="../allusers/liuzeyao1">liuzeyao1</td><td>100</td><td>1245.85</td><td class="positive">+20.20</td></tr>
+<tr><td>22</td><td href="../allusers/LiuYuYang">LiuYuYang</td><td>100</td><td>1274.00</td><td class="positive">+13.66</td></tr>
+<tr><td>22</td><td href="../allusers/XieJunYu">XieJunYu</td><td>100</td><td>1296.48</td><td class="positive">+7.31</td></tr>
+<tr><td>22</td><td href="../allusers/SunXuMeng">SunXuMeng</td><td>100</td><td>1297.88</td><td class="positive">+6.18</td></tr>
+<tr><td>22</td><td href="../allusers/WangPengBo">WangPengBo</td><td>100</td><td>1321.16</td><td class="negative">-1.33</td></tr>
+<tr><td>22</td><td href="../allusers/DaiMing">DaiMing</td><td>100</td><td>1333.54</td><td class="negative">-6.39</td></tr>
+<tr><td>22</td><td href="../allusers/ZhangJiuLe">ZhangJiuLe</td><td>100</td><td>1344.07</td><td class="negative">-11.66</td></tr>
+<tr><td>22</td><td href="../allusers/lianqi">lianqi</td><td>100</td><td>1351.43</td><td class="negative">-17.14</td></tr>
+<tr><td>22</td><td href="../allusers/MaYuFei">MaYuFei</td><td>100</td><td>1352.38</td><td class="negative">-19.70</td></tr>
+<tr><td>22</td><td href="../allusers/ChenZeMing">ChenZeMing</td><td>100</td><td>1352.21</td><td class="negative">-19.94</td></tr>
+<tr><td>22</td><td href="../allusers/XuZiHan">XuZiHan</td><td>100</td><td>1352.08</td><td class="negative">-21.85</td></tr>
+<tr><td>22</td><td href="../allusers/TuZhiBo">TuZhiBo</td><td>100</td><td>1351.89</td><td class="negative">-22.11</td></tr>
+<tr><td>22</td><td href="../allusers/WangHaoNan1">WangHaoNan1</td><td>100</td><td>1351.43</td><td class="negative">-23.11</td></tr>
+<tr><td>22</td><td href="../allusers/HeJingNan">HeJingNan</td><td>100</td><td>1351.43</td><td class="negative">-23.11</td></tr>
+<tr><td>22</td><td href="../allusers/PengZiHan">PengZiHan</td><td>100</td><td>1351.39</td><td class="negative">-25.17</td></tr>
+<tr><td>22</td><td href="../allusers/LiangLuoChen">LiangLuoChen</td><td>100</td><td>1353.13</td><td class="negative">-29.37</td></tr>
+<tr><td>22</td><td href="../allusers/XiangYuHao">XiangYuHao</td><td>100</td><td>1352.92</td><td class="negative">-30.33</td></tr>
+<tr><td>22</td><td href="../allusers/SunHanYu">SunHanYu</td><td>100</td><td>1352.65</td><td class="negative">-31.07</td></tr>
+<tr><td>22</td><td href="../allusers/ZhangZiChen">ZhangZiChen</td><td>100</td><td>1352.28</td><td class="negative">-32.36</td></tr>
+<tr><td>22</td><td href="../allusers/ZhangBoLe">ZhangBoLe</td><td>100</td><td>1352.02</td><td class="negative">-32.76</td></tr>
+<tr><td>22</td><td href="../allusers/LiHaoQian">LiHaoQian</td><td>100</td><td>1351.79</td><td class="negative">-33.08</td></tr>
+<tr><td>22</td><td href="../allusers/LvWenHan">LvWenHan</td><td>100</td><td>1351.27</td><td class="negative">-34.31</td></tr>
+<tr><td>22</td><td href="../allusers/ZhangJingTong">ZhangJingTong</td><td>100</td><td>1351.27</td><td class="negative">-34.31</td></tr>
+<tr><td>22</td><td href="../allusers/JiaZiXin">JiaZiXin</td><td>100</td><td>1351.80</td><td class="negative">-37.17</td></tr>
+<tr><td>22</td><td href="../allusers/ZhangZheYuan">ZhangZheYuan</td><td>100</td><td>1358.40</td><td class="negative">-42.49</td></tr>
+<tr><td>22</td><td href="../allusers/ShiYunHao">ShiYunHao</td><td>100</td><td>1388.00</td><td class="negative">-53.28</td></tr>
+<tr><td>22</td><td href="../allusers/ZhuLiXing">ZhuLiXing</td><td>100</td><td>1400.78</td><td class="negative">-57.62</td></tr>
+<tr><td>22</td><td href="../allusers/chengluojia">chengluojia</td><td>100</td><td>1428.15</td><td class="negative">-64.82</td></tr>
+<tr><td>22</td><td href="../allusers/licangxiao">licangxiao</td><td>100</td><td>1439.70</td><td class="negative">-68.22</td></tr>
+<tr><td>22</td><td href="../allusers/LuoWenZhang">LuoWenZhang</td><td>100</td><td>1467.29</td><td class="negative">-74.34</td></tr>
+<tr><td>22</td><td href="../allusers/ZhangBeiNing">ZhangBeiNing</td><td>100</td><td>1491.47</td><td class="negative">-79.35</td></tr>
+<tr><td>22</td><td href="../allusers/LiXingCheng">LiXingCheng</td><td>100</td><td>1501.83</td><td class="negative">-81.90</td></tr>
+<tr><td>55</td><td href="../allusers/YanLePeng">YanLePeng</td><td>40</td><td>1228.73</td><td class="negative">-83.78</td></tr>
+<tr><td>55</td><td href="../allusers/YangJingYuan">YangJingYuan</td><td>40</td><td>1289.29</td><td class="negative">-93.20</td></tr>
+<tr><td>55</td><td href="../allusers/FuJiuRui">FuJiuRui</td><td>40</td><td>1325.74</td><td class="negative">-99.09</td></tr>
+
+        </tbody>
+    </table>
+
+<script>
+let currentSort = { 
+    column: 0, 
+    order: 'desc',
+    icons: Array.from({length:5}, () => ({asc: '', desc: ''}))
+};
+
+// 初始化默认排序图标配置
+currentSort.icons = [
+    {desc: '↓', asc: '↑'},   // 排名列图标方向相反（实际按分数排序）
+    {desc: '↓', asc: '↑'},   // 姓名列
+    {desc: '↓', asc: '↑'},   // 分数列
+    {desc: '↓', asc: '↑'},   // Rating列
+    {desc: '↓', asc: '↑'}    // Δ列
+];
+
+function sortTable(columnIndex) {
+    const tbody = document.getElementById('rankBody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    
+    // 更新排序状态和图标
+    if (currentSort.column === columnIndex) {
+        currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+    } else {
+        currentSort.column = columnIndex;
+        currentSort.order = getDefaultOrder(columnIndex);
+    }
+    updateSortIcons();
+
+    // 获取默认排序方向
+    function getDefaultOrder(index) {
+        return 'desc'; // 姓名列默认升序，其他降序
+    }
+
+    // 核心排序逻辑
+    rows.sort((a, b) => {
+        let aVal, bVal;
+        
+        switch(currentSort.column) {
+            case 0: // 排名（实际按分数）
+                aVal = parseInt(a.cells[2].textContent);
+                bVal = parseInt(b.cells[2].textContent);
+                break;
+            case 1: // 姓名
+                aVal = a.cells[1].textContent;
+                bVal = b.cells[1].textContent;
+                return currentSort.order === 'desc' 
+                    ? aVal.localeCompare(bVal) 
+                    : bVal.localeCompare(aVal);
+            case 2: // 分数
+                aVal = parseInt(a.cells[2].textContent);
+                bVal = parseInt(b.cells[2].textContent);
+                break;
+            case 3: // Rating
+                aVal = parseFloat(a.cells[3].textContent);
+                bVal = parseFloat(b.cells[3].textContent);
+                break;
+            case 4: // Δ
+                aVal = parseFloat(a.cells[4].textContent);
+                bVal = parseFloat(b.cells[4].textContent);
+                break;
+        }
+
+        return currentSort.order === 'asc' 
+            ? aVal - bVal 
+            : bVal - aVal;
+    });
+
+    // 重新渲染表格
+    tbody.innerHTML = '';
+    rows.forEach((row, index) => {
+        //<!-- row.cells[0].textContent = index + 1; -->
+        row.className = '';
+        tbody.appendChild(row);
+    });
+}
+
+function updateSortIcons() {
+    document.querySelectorAll('.sort-icon').forEach((icon, index) => {
+        icon.textContent = currentSort.column === index 
+            ? currentSort.icons[index][currentSort.order]
+            : '';
+    });
+}
+</script>
+</body>
+</html>

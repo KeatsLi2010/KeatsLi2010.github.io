@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SunJiaLe08</title>
+    <style>
+        body { margin: 0; overflow: hidden; position: relative; }
+        #ratingCanvas { display: block; }
+        #tooltip {
+            position: absolute;
+            padding: 8px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border-radius: 4px;
+            pointer-events: none;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="ratingCanvas"></canvas>
+    <div id="tooltip"></div>
+
+    <script>
+        const ratingData = [
+            {time: 1709956800000, y: 0.000000, x: 0.000000, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=i357lge', name: 'SunJiaLe08',rating: 6.053125},
+{time: 1709956800000, y: 0.000000, x: 0.008850, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=i357lge', name: 'SunJiaLe08',rating: 6.689137},
+{time: 1709956800000, y: 0.000000, x: 0.017699, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=i357lge', name: 'SunJiaLe08',rating: 6.352899},
+{time: 1709956800000, y: 0.000000, x: 0.026549, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=i357lge', name: 'SunJiaLe08',rating: 5.880508},
+{time: 1709956800000, y: 0.000000, x: 0.035398, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=i357lge', name: 'SunJiaLe08',rating: 6.361843},
+{time: 1709956800000, y: 0.000000, x: 0.044248, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=i357lge', name: 'SunJiaLe08',rating: 5.218932},
+{time: 1709956800000, y: 0.000000, x: 0.053097, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=i357lge', name: 'SunJiaLe08',rating: 5.054116},
+{time: 1710561600000, y: 0.000000, x: 0.061947, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=rqmqp3g', name: 'SunJiaLe08',rating: 6.924434},
+{time: 1710561600000, y: 0.000000, x: 0.070796, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=rqmqp3g', name: 'SunJiaLe08',rating: 7.290700},
+{time: 1710561600000, y: 0.000000, x: 0.079646, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=rqmqp3g', name: 'SunJiaLe08',rating: 6.074787},
+{time: 1710561600000, y: 0.000000, x: 0.088496, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=rqmqp3g', name: 'SunJiaLe08',rating: 5.640081},
+{time: 1710561600000, y: 0.000000, x: 0.097345, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=rqmqp3g', name: 'SunJiaLe08',rating: 5.305781},
+{time: 1710561600000, y: 0.000000, x: 0.106195, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=rqmqp3g', name: 'SunJiaLe08',rating: 5.251288},
+{time: 1710561600000, y: 0.000000, x: 0.115044, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=rqmqp3g', name: 'SunJiaLe08',rating: 5.000000},
+{time: 1714918281000, y: 0.000000, x: 0.123894, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=njcjccf', name: 'SunJiaLe08',rating: 7.743787},
+{time: 1714918281000, y: 0.000000, x: 0.132743, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=njcjccf', name: 'SunJiaLe08',rating: 6.322834},
+{time: 1714918281000, y: 0.000000, x: 0.141593, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=njcjccf', name: 'SunJiaLe08',rating: 5.492123},
+{time: 1714918281000, y: 0.000000, x: 0.150442, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=njcjccf', name: 'SunJiaLe08',rating: 5.328545},
+{time: 1714918281000, y: 0.000000, x: 0.159292, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=njcjccf', name: 'SunJiaLe08',rating: 5.270959},
+{time: 1714918281000, y: 0.000000, x: 0.168142, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=njcjccf', name: 'SunJiaLe08',rating: 5.000000},
+{time: 1732336200000, y: 0.000000, x: 0.176991, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=fdlt8de', name: 'SunJiaLe08',rating: 9.217362},
+{time: 1732336200000, y: 0.000000, x: 0.185841, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=fdlt8de', name: 'SunJiaLe08',rating: 6.830893},
+{time: 1732336200000, y: 0.000000, x: 0.194690, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=fdlt8de', name: 'SunJiaLe08',rating: 5.874076},
+{time: 1732336200000, y: 0.000000, x: 0.203540, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=fdlt8de', name: 'SunJiaLe08',rating: 5.494014},
+{time: 1732336200000, y: 0.000000, x: 0.212389, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=fdlt8de', name: 'SunJiaLe08',rating: 5.457253},
+{time: 1732507200000, y: 0.000000, x: 0.221239, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mua4lev', name: 'SunJiaLe08',rating: 6.598368},
+{time: 1732507200000, y: 0.000000, x: 0.230088, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mua4lev', name: 'SunJiaLe08',rating: 11.310734},
+{time: 1732507200000, y: 0.000000, x: 0.238938, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mua4lev', name: 'SunJiaLe08',rating: 8.382126},
+{time: 1732507200000, y: 0.000000, x: 0.247788, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mua4lev', name: 'SunJiaLe08',rating: 5.499091},
+{time: 1732507200000, y: 0.000000, x: 0.256637, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mua4lev', name: 'SunJiaLe08',rating: 5.718321},
+{time: 1732680000000, y: 0.000000, x: 0.265487, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=347sctk', name: 'SunJiaLe08',rating: 6.598368},
+{time: 1732680000000, y: 0.000000, x: 0.274336, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=347sctk', name: 'SunJiaLe08',rating: 12.046741},
+{time: 1732680000000, y: 0.000000, x: 0.283186, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=347sctk', name: 'SunJiaLe08',rating: 8.382126},
+{time: 1732680000000, y: 0.000000, x: 0.292035, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=347sctk', name: 'SunJiaLe08',rating: 6.619689},
+{time: 1732680000000, y: 0.000000, x: 0.300885, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=347sctk', name: 'SunJiaLe08',rating: 5.499091},
+{time: 1733544000000, y: 0.000000, x: 0.309735, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=gpd5qf5', name: 'SunJiaLe08',rating: 6.557193},
+{time: 1733544000000, y: 0.000000, x: 0.318584, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=gpd5qf5', name: 'SunJiaLe08',rating: 11.470239},
+{time: 1733544000000, y: 0.000000, x: 0.327434, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=gpd5qf5', name: 'SunJiaLe08',rating: 5.753016},
+{time: 1733544000000, y: 0.000000, x: 0.336283, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=gpd5qf5', name: 'SunJiaLe08',rating: 5.923759},
+{time: 1734148800000, y: 0.000000, x: 0.345133, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ofjuh5v', name: 'SunJiaLe08',rating: 11.881286},
+{time: 1734148800000, y: 0.000000, x: 0.353982, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ofjuh5v', name: 'SunJiaLe08',rating: 5.475817},
+{time: 1734148800000, y: 0.000000, x: 0.362832, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ofjuh5v', name: 'SunJiaLe08',rating: 6.457773},
+{time: 1734148800000, y: 0.000000, x: 0.371681, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ofjuh5v', name: 'SunJiaLe08',rating: 7.429366},
+{time: 1734148800000, y: 0.000000, x: 0.380531, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ofjuh5v', name: 'SunJiaLe08',rating: 7.067638},
+{time: 1734148800000, y: 0.000000, x: 0.389381, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ofjuh5v', name: 'SunJiaLe08',rating: 5.997319},
+{time: 1734753600000, y: 0.000000, x: 0.398230, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=m1cl0mn', name: 'SunJiaLe08',rating: 11.498924},
+{time: 1734753600000, y: 0.000000, x: 0.407080, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=m1cl0mn', name: 'SunJiaLe08',rating: 5.433797},
+{time: 1734753600000, y: 0.000000, x: 0.415929, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=m1cl0mn', name: 'SunJiaLe08',rating: 8.382126},
+{time: 1734753600000, y: 0.000000, x: 0.424779, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=m1cl0mn', name: 'SunJiaLe08',rating: 5.753016},
+{time: 1734753600000, y: 0.000000, x: 0.433628, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=m1cl0mn', name: 'SunJiaLe08',rating: 5.339730},
+{time: 1734753600000, y: 0.000000, x: 0.442478, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=m1cl0mn', name: 'SunJiaLe08',rating: 5.947792},
+{time: 1737000000000, y: 0.000000, x: 0.451327, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=tdrnsea', name: 'SunJiaLe08',rating: 6.557193},
+{time: 1737000000000, y: 0.000000, x: 0.460177, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=tdrnsea', name: 'SunJiaLe08',rating: 11.343282},
+{time: 1737000000000, y: 0.000000, x: 0.469027, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=tdrnsea', name: 'SunJiaLe08',rating: 6.416009},
+{time: 1737000000000, y: 0.000000, x: 0.477876, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=tdrnsea', name: 'SunJiaLe08',rating: 5.205027},
+{time: 1739593800000, y: 0.000000, x: 0.486726, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=oigg4fe', name: 'SunJiaLe08',rating: 6.557193},
+{time: 1739593800000, y: 0.000000, x: 0.495575, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=oigg4fe', name: 'SunJiaLe08',rating: 10.928077},
+{time: 1739593800000, y: 0.000000, x: 0.504425, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=oigg4fe', name: 'SunJiaLe08',rating: 7.984075},
+{time: 1739593800000, y: 0.000000, x: 0.513274, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=oigg4fe', name: 'SunJiaLe08',rating: 6.432142},
+{time: 1739593800000, y: 0.000000, x: 0.522124, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=oigg4fe', name: 'SunJiaLe08',rating: 5.339730},
+{time: 1742013000000, y: 0.000000, x: 0.530973, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=qc1sf94', name: 'SunJiaLe08',rating: 11.615279},
+{time: 1742013000000, y: 0.000000, x: 0.539823, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=qc1sf94', name: 'SunJiaLe08',rating: 5.433797},
+{time: 1742013000000, y: 0.000000, x: 0.548673, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=qc1sf94', name: 'SunJiaLe08',rating: 10.243172},
+{time: 1742013000000, y: 0.000000, x: 0.557522, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=qc1sf94', name: 'SunJiaLe08',rating: 7.581870},
+{time: 1742617800000, y: 0.000000, x: 0.566372, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ne79i3d', name: 'SunJiaLe08',rating: 7.212906},
+{time: 1742617800000, y: 0.000000, x: 0.575221, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ne79i3d', name: 'SunJiaLe08',rating: 12.281379},
+{time: 1742617800000, y: 0.000000, x: 0.584071, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ne79i3d', name: 'SunJiaLe08',rating: 1.673409},
+{time: 1742617800000, y: 0.000000, x: 0.592920, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ne79i3d', name: 'SunJiaLe08',rating: 8.410275},
+{time: 1742617800000, y: 0.000000, x: 0.601770, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ne79i3d', name: 'SunJiaLe08',rating: 7.554108},
+{time: 1743222600000, y: 0.000000, x: 0.610619, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=92vmvkq', name: 'SunJiaLe08',rating: 8.154706},
+{time: 1743222600000, y: 0.000000, x: 0.619469, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=92vmvkq', name: 'SunJiaLe08',rating: 10.768870},
+{time: 1743222600000, y: 0.000000, x: 0.628319, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=92vmvkq', name: 'SunJiaLe08',rating: 9.889700},
+{time: 1743222600000, y: 0.000000, x: 0.637168, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=92vmvkq', name: 'SunJiaLe08',rating: 5.266252},
+{time: 1743222600000, y: 0.000000, x: 0.646018, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=92vmvkq', name: 'SunJiaLe08',rating: 5.636286},
+{time: 1743393600000, y: 0.000000, x: 0.654867, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=7vujjaf', name: 'SunJiaLe08',rating: 12.247044},
+{time: 1743393600000, y: 0.000000, x: 0.663717, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=7vujjaf', name: 'SunJiaLe08',rating: 9.811797},
+{time: 1743393600000, y: 0.000000, x: 0.672566, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=7vujjaf', name: 'SunJiaLe08',rating: 5.339730},
+{time: 1743393600000, y: 0.000000, x: 0.681416, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=7vujjaf', name: 'SunJiaLe08',rating: 5.620863},
+{time: 1743393600000, y: 0.000000, x: 0.690265, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=7vujjaf', name: 'SunJiaLe08',rating: 6.404774},
+{time: 1743652800000, y: 0.000000, x: 0.699115, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=bbmkoh8', name: 'SunJiaLe08',rating: 8.154706},
+{time: 1743652800000, y: 0.000000, x: 0.707965, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=bbmkoh8', name: 'SunJiaLe08',rating: 12.556511},
+{time: 1743652800000, y: 0.000000, x: 0.716814, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=bbmkoh8', name: 'SunJiaLe08',rating: 8.410275},
+{time: 1743652800000, y: 0.000000, x: 0.725664, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=bbmkoh8', name: 'SunJiaLe08',rating: 5.620863},
+{time: 1743652800000, y: 0.000000, x: 0.734513, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=bbmkoh8', name: 'SunJiaLe08',rating: 6.404774},
+{time: 1743913800000, y: 0.000000, x: 0.743363, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ck4oim2', name: 'SunJiaLe08',rating: 6.981808},
+{time: 1743913800000, y: 0.000000, x: 0.752212, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ck4oim2', name: 'SunJiaLe08',rating: 9.811797},
+{time: 1743913800000, y: 0.000000, x: 0.761062, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ck4oim2', name: 'SunJiaLe08',rating: 6.004402},
+{time: 1744084800000, y: 0.000000, x: 0.769912, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6uscpsi', name: 'SunJiaLe08',rating: 12.069420},
+{time: 1744084800000, y: 0.000000, x: 0.778761, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6uscpsi', name: 'SunJiaLe08',rating: 9.377789},
+{time: 1744084800000, y: 0.000000, x: 0.787611, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6uscpsi', name: 'SunJiaLe08',rating: 6.399601},
+{time: 1744084800000, y: 0.000000, x: 0.796460, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6uscpsi', name: 'SunJiaLe08',rating: 9.987926},
+{time: 1744257600000, y: 0.000000, x: 0.805310, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=49jd97e', name: 'SunJiaLe08',rating: 8.383068},
+{time: 1744257600000, y: 0.000000, x: 0.814159, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=49jd97e', name: 'SunJiaLe08',rating: 12.069420},
+{time: 1744257600000, y: 0.000000, x: 0.823009, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=49jd97e', name: 'SunJiaLe08',rating: 9.377789},
+{time: 1744257600000, y: 0.000000, x: 0.831858, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=49jd97e', name: 'SunJiaLe08',rating: 8.923967},
+{time: 1746417600000, y: 0.000000, x: 0.840708, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=7hsnqr8', name: 'SunJiaLe08',rating: 12.430137},
+{time: 1746417600000, y: 0.000000, x: 0.849558, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=7hsnqr8', name: 'SunJiaLe08',rating: 9.268479},
+{time: 1746417600000, y: 0.000000, x: 0.858407, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=7hsnqr8', name: 'SunJiaLe08',rating: 7.020962},
+{time: 1746676800000, y: 0.000000, x: 0.867257, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=301h449', name: 'SunJiaLe08',rating: 6.429131},
+{time: 1746676800000, y: 0.000000, x: 0.876106, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=301h449', name: 'SunJiaLe08',rating: 12.430137},
+{time: 1746676800000, y: 0.000000, x: 0.884956, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=301h449', name: 'SunJiaLe08',rating: 7.259109},
+{time: 1746676800000, y: 0.000000, x: 0.893805, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=301h449', name: 'SunJiaLe08',rating: 8.410275},
+{time: 1746676800000, y: 0.000000, x: 0.902655, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=301h449', name: 'SunJiaLe08',rating: 5.266252},
+{time: 1746849600000, y: 0.000000, x: 0.911504, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=oonkkak', name: 'SunJiaLe08',rating: 3.616101},
+{time: 1746849600000, y: 0.000000, x: 0.920354, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=oonkkak', name: 'SunJiaLe08',rating: 5.266252},
+{time: 1746849600000, y: 0.000000, x: 0.929204, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=oonkkak', name: 'SunJiaLe08',rating: 5.000000},
+{time: 1747022400000, y: 0.000000, x: 0.938053, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=no2it00', name: 'SunJiaLe08',rating: 12.769550},
+{time: 1747022400000, y: 0.000000, x: 0.946903, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=no2it00', name: 'SunJiaLe08',rating: 7.168042},
+{time: 1747022400000, y: 0.000000, x: 0.955752, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=no2it00', name: 'SunJiaLe08',rating: 7.054730},
+{time: 1747022400000, y: 0.000000, x: 0.964602, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=no2it00', name: 'SunJiaLe08',rating: 9.987926},
+{time: 1747022400000, y: 0.000000, x: 0.973451, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=no2it00', name: 'SunJiaLe08',rating: 5.620863},
+{time: 1747022400000, y: 0.000000, x: 0.982301, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=no2it00', name: 'SunJiaLe08',rating: 6.299185},
+{time: 1747022400000, y: 0.000000, x: 0.991150, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=no2it00', name: 'SunJiaLe08',rating: 5.328566},
+
+        ];
+
+        // 数据预处理 [[8]]
+        ratingData.sort((a, b) => a.time - b.time);
+        const minTime = Math.min(...ratingData.map(d => d.time));
+        const maxTime = Math.max(...ratingData.map(d => d.time));
+
+        const canvas = document.getElementById('ratingCanvas');
+        const ctx = canvas.getContext('2d');
+        const tooltip = document.getElementById('tooltip');
+        let canvasWidth, canvasHeight;
+
+        function resizeCanvas() {
+            canvasWidth = window.innerWidth;
+            canvasHeight = window.innerHeight * 0.6;
+            canvas.width = canvasWidth * devicePixelRatio;
+            canvas.height = canvasHeight * devicePixelRatio;
+            canvas.style.width = `${canvasWidth}px`;
+            canvas.style.height = `${canvasHeight}px`;
+            ctx.scale(devicePixelRatio, devicePixelRatio);
+            draw();
+        }
+        function draw() {
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            const segments = 6;
+            const segmentHeight = canvasHeight / segments;
+            const colors = ["#fe4c61","#ffc116","#52c41a","#5cdbd3","#3498db","#9c1d19"];
+            const ratings= [0,2,4,8,16,32,64];
+            colors.forEach((color, index) => {
+                index=5-index;
+                ctx.fillStyle = color;
+                ctx.fillRect(
+                    0, 
+                    canvasHeight - (index + 1) * segmentHeight,
+                    canvasWidth,
+                    segmentHeight
+                );
+            });
+
+            // 绘制坐标轴 [[4]]
+            const axisMargin = 40; // 左侧纵坐标边距
+            ctx.strokeStyle = '#666';
+            
+            // 绘制左侧纵坐标轴
+            ctx.beginPath();
+            ctx.moveTo(axisMargin, 0);
+            ctx.lineTo(axisMargin, canvasHeight);
+            ctx.stroke();
+
+            // 绘制底部横坐标轴
+            ctx.beginPath();
+            ctx.moveTo(axisMargin, canvasHeight-0.5);
+            ctx.lineTo(canvasWidth, canvasHeight-0.5);
+            ctx.stroke();
+
+            // 绘制纵坐标标签和刻度
+            ctx.fillStyle = '#666';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            
+            const maxValue = 100;
+            const minValue = 0;
+            const step = (maxValue - minValue) / segments;
+            
+            for(let i = 0; i <= segments; i++) {
+                const y = canvasHeight - (i * segmentHeight);
+                
+                // 绘制刻度线
+                ctx.beginPath();
+                ctx.moveTo(axisMargin - 5, y);
+                ctx.lineTo(axisMargin, y);
+                ctx.stroke();
+                
+                // 绘制标签
+                ctx.fillText(ratings[i], axisMargin - 8, y + 4);
+            }
+            var lstyear="114514",lstmonth="1919810";
+            ratingData.forEach(data => {
+                const x = data.x*canvasWidth;
+                ctx.beginPath();
+                ctx.moveTo(x, canvasHeight);
+                ctx.lineTo(x, canvasHeight + 5);
+                ctx.stroke();
+                const date = new Date(data.time);
+                ctx.fillStyle = "#333";
+                ctx.font = "12px Arial";
+                ctx.textAlign = "center";
+                var year=String(date.getFullYear());
+                if(year!=lstyear){
+                    ctx.fillText(
+                        year+"年",
+                        x,
+                        canvasHeight - 5
+                    );
+                }else{
+                    var month=String(date.getMonth()+1).padStart(2, '0');
+                    if(month!=lstmonth){
+                        ctx.fillText(
+                            month+"月",
+                            x,
+                            canvasHeight - 5
+                        );
+                    }
+                }
+                lstmonth=month,lstyear=year;
+            });
+
+            // 绘制数据折线
+            ctx.beginPath();
+            ctx.lineWidth = 2;
+            ratingData.forEach((point, index) => {
+                const x = point.x*canvasWidth;
+                const y = canvasHeight - point.y * canvasHeight;
+                point._x = x;
+                point._y = y;
+
+                if (index === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+
+            const lineGradient = ctx.createLinearGradient(0, 0, canvasWidth, 0);
+            lineGradient.addColorStop(0, '#00008B');
+            lineGradient.addColorStop(1, '#E0FFFF');
+            ctx.strokeStyle = lineGradient;
+            ctx.stroke();
+
+            // 绘制数据点和标注（保持原有逻辑）
+            ratingData.forEach(point => {
+                const x = point.x*canvasWidth;
+                const y = canvasHeight - point.y * canvasHeight;
+                
+                ctx.beginPath();
+                ctx.fillStyle = "#66CCFF";
+                ctx.arc(x, y, 5, 0, Math.PI*2);
+                ctx.fill();
+                
+                ctx.fillStyle = "#00008B";
+            });
+        }
+
+        // 保持原有事件处理逻辑
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            let hoverPoint = null;
+            for (const point of ratingData) {
+                const dx = mouseX - point._x;
+                const dy = mouseY - point._y;
+                if (Math.hypot(dx, dy) < 12) {
+                    hoverPoint = point;
+                    break;
+                }
+            }
+
+            tooltip.style.display = hoverPoint ? 'block' : 'none';
+            if (hoverPoint) {
+                tooltip.style.left = `${e.pageX + 10}px`;
+                tooltip.style.top = `${e.pageY + 10}px`;
+                tooltip.textContent = "rating: "+parseInt(hoverPoint.rating)+hoverPoint.name;
+            }
+        });
+
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            ratingData.some(point => {
+                const dx = x - point._x;
+                const dy = y - point._y;
+                if (Math.hypot(dx, dy) < 12) {
+                    window.open(point.url, '_blank');
+                    return true;
+                }
+            });
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+    </script>
+</body>
+</html>

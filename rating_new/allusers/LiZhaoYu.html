@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LiZhaoYu</title>
+    <style>
+        body { margin: 0; overflow: hidden; position: relative; }
+        #ratingCanvas { display: block; }
+        #tooltip {
+            position: absolute;
+            padding: 8px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border-radius: 4px;
+            pointer-events: none;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="ratingCanvas"></canvas>
+    <div id="tooltip"></div>
+
+    <script>
+        const ratingData = [
+            {time: 1716627600000, y: 0.000000, x: 0.000000, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=f4f981j', name: 'LiZhaoYu',rating: 4.996120},
+{time: 1716627600000, y: 0.000000, x: 0.010101, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=f4f981j', name: 'LiZhaoYu',rating: 4.998248},
+{time: 1716627600000, y: 0.000000, x: 0.020202, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=f4f981j', name: 'LiZhaoYu',rating: 4.996566},
+{time: 1716627600000, y: 0.000000, x: 0.030303, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=f4f981j', name: 'LiZhaoYu',rating: 5.000000},
+{time: 1716627600000, y: 0.000000, x: 0.040404, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=f4f981j', name: 'LiZhaoYu',rating: 5.000000},
+{time: 1725272400000, y: 0.000000, x: 0.050505, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=b109aiq', name: 'LiZhaoYu',rating: 4.236776},
+{time: 1725272400000, y: 0.000000, x: 0.060606, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=b109aiq', name: 'LiZhaoYu',rating: 4.998248},
+{time: 1725272400000, y: 0.000000, x: 0.070707, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=b109aiq', name: 'LiZhaoYu',rating: 5.229265},
+{time: 1725272400000, y: 0.000000, x: 0.080808, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=b109aiq', name: 'LiZhaoYu',rating: 4.739635},
+{time: 1725681600000, y: 0.000000, x: 0.090909, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=dfvdos9', name: 'LiZhaoYu',rating: 4.583663},
+{time: 1725681600000, y: 0.000000, x: 0.101010, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=dfvdos9', name: 'LiZhaoYu',rating: 4.998248},
+{time: 1725681600000, y: 0.000000, x: 0.111111, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=dfvdos9', name: 'LiZhaoYu',rating: 4.092500},
+{time: 1725681600000, y: 0.000000, x: 0.121212, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=dfvdos9', name: 'LiZhaoYu',rating: 3.955247},
+{time: 1725681600000, y: 0.000000, x: 0.131313, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=dfvdos9', name: 'LiZhaoYu',rating: 4.973543},
+{time: 1725681600000, y: 0.000000, x: 0.141414, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=dfvdos9', name: 'LiZhaoYu',rating: 5.000000},
+{time: 1726372800000, y: 0.000000, x: 0.151515, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ri8qang', name: 'LiZhaoYu',rating: 5.994856},
+{time: 1726372800000, y: 0.000000, x: 0.161616, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ri8qang', name: 'LiZhaoYu',rating: 5.750631},
+{time: 1726372800000, y: 0.000000, x: 0.171717, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ri8qang', name: 'LiZhaoYu',rating: 7.638590},
+{time: 1726372800000, y: 0.000000, x: 0.181818, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ri8qang', name: 'LiZhaoYu',rating: 4.092500},
+{time: 1726372800000, y: 0.000000, x: 0.191919, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ri8qang', name: 'LiZhaoYu',rating: 3.779630},
+{time: 1726372800000, y: 0.000000, x: 0.202020, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ri8qang', name: 'LiZhaoYu',rating: 5.524194},
+{time: 1726977600000, y: 0.000000, x: 0.212121, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=2mcu8qd', name: 'LiZhaoYu',rating: 5.576818},
+{time: 1726977600000, y: 0.000000, x: 0.222222, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=2mcu8qd', name: 'LiZhaoYu',rating: 5.293246},
+{time: 1726977600000, y: 0.000000, x: 0.232323, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=2mcu8qd', name: 'LiZhaoYu',rating: 4.739635},
+{time: 1726977600000, y: 0.000000, x: 0.242424, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=2mcu8qd', name: 'LiZhaoYu',rating: 6.772375},
+{time: 1726977600000, y: 0.000000, x: 0.252525, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=2mcu8qd', name: 'LiZhaoYu',rating: 3.926868},
+{time: 1726977600000, y: 0.000000, x: 0.262626, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=2mcu8qd', name: 'LiZhaoYu',rating: 4.691606},
+{time: 1726977600000, y: 0.000000, x: 0.272727, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=2mcu8qd', name: 'LiZhaoYu',rating: 4.867308},
+{time: 1726977600000, y: 0.000000, x: 0.282828, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=2mcu8qd', name: 'LiZhaoYu',rating: 5.524194},
+{time: 1727150400000, y: 0.000000, x: 0.292929, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=td3nhqv', name: 'LiZhaoYu',rating: 3.606419},
+{time: 1727150400000, y: 0.000000, x: 0.303030, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=td3nhqv', name: 'LiZhaoYu',rating: 3.772405},
+{time: 1727150400000, y: 0.000000, x: 0.313131, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=td3nhqv', name: 'LiZhaoYu',rating: 2.155326},
+{time: 1727150400000, y: 0.000000, x: 0.323232, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=td3nhqv', name: 'LiZhaoYu',rating: 5.000000},
+{time: 1727150400000, y: 0.000000, x: 0.333333, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=td3nhqv', name: 'LiZhaoYu',rating: 5.524194},
+{time: 1727323200000, y: 0.000000, x: 0.343434, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=t2jdskk', name: 'LiZhaoYu',rating: 3.508834},
+{time: 1727323200000, y: 0.000000, x: 0.353535, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=t2jdskk', name: 'LiZhaoYu',rating: 3.959348},
+{time: 1727323200000, y: 0.000000, x: 0.363636, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=t2jdskk', name: 'LiZhaoYu',rating: 4.955353},
+{time: 1727323200000, y: 0.000000, x: 0.373737, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=t2jdskk', name: 'LiZhaoYu',rating: 2.973643},
+{time: 1727323200000, y: 0.000000, x: 0.383838, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=t2jdskk', name: 'LiZhaoYu',rating: 4.779253},
+{time: 1727668800000, y: 0.000000, x: 0.393939, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=4tq4q2j', name: 'LiZhaoYu',rating: 3.889981},
+{time: 1727668800000, y: 0.000000, x: 0.404040, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=4tq4q2j', name: 'LiZhaoYu',rating: 3.452756},
+{time: 1727668800000, y: 0.000000, x: 0.414141, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=4tq4q2j', name: 'LiZhaoYu',rating: 4.072944},
+{time: 1727668800000, y: 0.000000, x: 0.424242, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=4tq4q2j', name: 'LiZhaoYu',rating: 4.435238},
+{time: 1727668800000, y: 0.000000, x: 0.434343, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=4tq4q2j', name: 'LiZhaoYu',rating: 1.175872},
+{time: 1727668800000, y: 0.000000, x: 0.444444, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=4tq4q2j', name: 'LiZhaoYu',rating: 4.170181},
+{time: 1727668800000, y: 0.000000, x: 0.454545, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=4tq4q2j', name: 'LiZhaoYu',rating: 5.377775},
+{time: 1727857800000, y: 0.000000, x: 0.464646, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ruoj9f5', name: 'LiZhaoYu',rating: 4.982259},
+{time: 1727857800000, y: 0.000000, x: 0.474747, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ruoj9f5', name: 'LiZhaoYu',rating: 2.092374},
+{time: 1727857800000, y: 0.000000, x: 0.484848, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ruoj9f5', name: 'LiZhaoYu',rating: 3.954232},
+{time: 1727857800000, y: 0.000000, x: 0.494949, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ruoj9f5', name: 'LiZhaoYu',rating: 5.445568},
+{time: 1727857800000, y: 0.000000, x: 0.505051, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ruoj9f5', name: 'LiZhaoYu',rating: 4.435238},
+{time: 1727857800000, y: 0.000000, x: 0.515152, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ruoj9f5', name: 'LiZhaoYu',rating: 5.094752},
+{time: 1728273600000, y: 0.000000, x: 0.525253, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ance6i1', name: 'LiZhaoYu',rating: 4.264374},
+{time: 1728273600000, y: 0.000000, x: 0.535354, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ance6i1', name: 'LiZhaoYu',rating: 4.605638},
+{time: 1728273600000, y: 0.000000, x: 0.545455, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=ance6i1', name: 'LiZhaoYu',rating: 2.839664},
+{time: 1728446400000, y: 0.000000, x: 0.555556, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6emgm10', name: 'LiZhaoYu',rating: 4.179972},
+{time: 1728446400000, y: 0.000000, x: 0.565657, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6emgm10', name: 'LiZhaoYu',rating: 4.166465},
+{time: 1728446400000, y: 0.000000, x: 0.575758, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6emgm10', name: 'LiZhaoYu',rating: 5.590953},
+{time: 1728619200000, y: 0.000000, x: 0.585859, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6si2l4f', name: 'LiZhaoYu',rating: 5.094510},
+{time: 1728619200000, y: 0.000000, x: 0.595960, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6si2l4f', name: 'LiZhaoYu',rating: 4.370323},
+{time: 1728619200000, y: 0.000000, x: 0.606061, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6si2l4f', name: 'LiZhaoYu',rating: 5.075919},
+{time: 1728619200000, y: 0.000000, x: 0.616162, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6si2l4f', name: 'LiZhaoYu',rating: 4.643256},
+{time: 1728619200000, y: 0.000000, x: 0.626263, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6si2l4f', name: 'LiZhaoYu',rating: 5.775187},
+{time: 1728792000000, y: 0.000000, x: 0.636364, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=67tu1st', name: 'LiZhaoYu',rating: 4.893309},
+{time: 1728792000000, y: 0.000000, x: 0.646465, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=67tu1st', name: 'LiZhaoYu',rating: 4.786861},
+{time: 1728792000000, y: 0.000000, x: 0.656566, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=67tu1st', name: 'LiZhaoYu',rating: 5.789817},
+{time: 1728792000000, y: 0.000000, x: 0.666667, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=67tu1st', name: 'LiZhaoYu',rating: 2.839664},
+{time: 1728878400000, y: 0.000000, x: 0.676768, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=nv7286j', name: 'LiZhaoYu',rating: 4.758959},
+{time: 1728878400000, y: 0.000000, x: 0.686869, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=nv7286j', name: 'LiZhaoYu',rating: 4.294469},
+{time: 1728878400000, y: 0.000000, x: 0.696970, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=nv7286j', name: 'LiZhaoYu',rating: 3.396517},
+{time: 1728878400000, y: 0.000000, x: 0.707071, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=nv7286j', name: 'LiZhaoYu',rating: 2.468619},
+{time: 1729051200000, y: 0.000000, x: 0.717172, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=lhs4ksu', name: 'LiZhaoYu',rating: 4.319294},
+{time: 1729051200000, y: 0.000000, x: 0.727273, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=lhs4ksu', name: 'LiZhaoYu',rating: 3.690891},
+{time: 1729051200000, y: 0.000000, x: 0.737374, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=lhs4ksu', name: 'LiZhaoYu',rating: 6.992686},
+{time: 1729051200000, y: 0.000000, x: 0.747475, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=lhs4ksu', name: 'LiZhaoYu',rating: 5.010164},
+{time: 1729224000000, y: 0.000000, x: 0.757576, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=qb2bsjo', name: 'LiZhaoYu',rating: 4.818565},
+{time: 1729224000000, y: 0.000000, x: 0.767677, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=qb2bsjo', name: 'LiZhaoYu',rating: 5.610746},
+{time: 1729224000000, y: 0.000000, x: 0.777778, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=qb2bsjo', name: 'LiZhaoYu',rating: 5.010164},
+{time: 1729224000000, y: 0.000000, x: 0.787879, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=qb2bsjo', name: 'LiZhaoYu',rating: 4.814292},
+{time: 1729656000000, y: 0.000000, x: 0.797980, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6g4ko0b', name: 'LiZhaoYu',rating: 5.277802},
+{time: 1729656000000, y: 0.000000, x: 0.808081, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6g4ko0b', name: 'LiZhaoYu',rating: 6.574294},
+{time: 1729656000000, y: 0.000000, x: 0.818182, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6g4ko0b', name: 'LiZhaoYu',rating: 6.638036},
+{time: 1729656000000, y: 0.000000, x: 0.828283, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6g4ko0b', name: 'LiZhaoYu',rating: 4.950413},
+{time: 1729656000000, y: 0.000000, x: 0.838384, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=6g4ko0b', name: 'LiZhaoYu',rating: 4.665223},
+{time: 1732336200000, y: 0.000000, x: 0.848485, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=gf4tfga', name: 'LiZhaoYu',rating: 5.828737},
+{time: 1732336200000, y: 0.000000, x: 0.858586, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=gf4tfga', name: 'LiZhaoYu',rating: 6.330951},
+{time: 1732336200000, y: 0.000000, x: 0.868687, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=gf4tfga', name: 'LiZhaoYu',rating: 6.580075},
+{time: 1732336200000, y: 0.000000, x: 0.878788, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=gf4tfga', name: 'LiZhaoYu',rating: 5.661417},
+{time: 1732336200000, y: 0.000000, x: 0.888889, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=gf4tfga', name: 'LiZhaoYu',rating: 4.494718},
+{time: 1732507200000, y: 0.000000, x: 0.898990, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mua4lev', name: 'LiZhaoYu',rating: 5.592537},
+{time: 1732507200000, y: 0.000000, x: 0.909091, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mua4lev', name: 'LiZhaoYu',rating: 5.224909},
+{time: 1732507200000, y: 0.000000, x: 0.919192, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mua4lev', name: 'LiZhaoYu',rating: 4.354334},
+{time: 1732507200000, y: 0.000000, x: 0.929293, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mua4lev', name: 'LiZhaoYu',rating: 5.339441},
+{time: 1732507200000, y: 0.000000, x: 0.939394, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=mua4lev', name: 'LiZhaoYu',rating: 4.368003},
+{time: 1732680000000, y: 0.000000, x: 0.949495, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=347sctk', name: 'LiZhaoYu',rating: 5.403717},
+{time: 1732680000000, y: 0.000000, x: 0.959596, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=347sctk', name: 'LiZhaoYu',rating: 5.882849},
+{time: 1732680000000, y: 0.000000, x: 0.969697, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=347sctk', name: 'LiZhaoYu',rating: 5.201917},
+{time: 1732680000000, y: 0.000000, x: 0.979798, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=347sctk', name: 'LiZhaoYu',rating: 4.990665},
+{time: 1732680000000, y: 0.000000, x: 0.989899, url: 'https://syp.hhwdd.com/new/domain/StatAssignment.page?assignId=347sctk', name: 'LiZhaoYu',rating: 4.130343},
+
+        ];
+
+        // 数据预处理 [[8]]
+        ratingData.sort((a, b) => a.time - b.time);
+        const minTime = Math.min(...ratingData.map(d => d.time));
+        const maxTime = Math.max(...ratingData.map(d => d.time));
+
+        const canvas = document.getElementById('ratingCanvas');
+        const ctx = canvas.getContext('2d');
+        const tooltip = document.getElementById('tooltip');
+        let canvasWidth, canvasHeight;
+
+        function resizeCanvas() {
+            canvasWidth = window.innerWidth;
+            canvasHeight = window.innerHeight * 0.6;
+            canvas.width = canvasWidth * devicePixelRatio;
+            canvas.height = canvasHeight * devicePixelRatio;
+            canvas.style.width = `${canvasWidth}px`;
+            canvas.style.height = `${canvasHeight}px`;
+            ctx.scale(devicePixelRatio, devicePixelRatio);
+            draw();
+        }
+        function draw() {
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            const segments = 6;
+            const segmentHeight = canvasHeight / segments;
+            const colors = ["#fe4c61","#ffc116","#52c41a","#5cdbd3","#3498db","#9c1d19"];
+            const ratings= [0,2,4,8,16,32,64];
+            colors.forEach((color, index) => {
+                index=5-index;
+                ctx.fillStyle = color;
+                ctx.fillRect(
+                    0, 
+                    canvasHeight - (index + 1) * segmentHeight,
+                    canvasWidth,
+                    segmentHeight
+                );
+            });
+
+            // 绘制坐标轴 [[4]]
+            const axisMargin = 40; // 左侧纵坐标边距
+            ctx.strokeStyle = '#666';
+            
+            // 绘制左侧纵坐标轴
+            ctx.beginPath();
+            ctx.moveTo(axisMargin, 0);
+            ctx.lineTo(axisMargin, canvasHeight);
+            ctx.stroke();
+
+            // 绘制底部横坐标轴
+            ctx.beginPath();
+            ctx.moveTo(axisMargin, canvasHeight-0.5);
+            ctx.lineTo(canvasWidth, canvasHeight-0.5);
+            ctx.stroke();
+
+            // 绘制纵坐标标签和刻度
+            ctx.fillStyle = '#666';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            
+            const maxValue = 100;
+            const minValue = 0;
+            const step = (maxValue - minValue) / segments;
+            
+            for(let i = 0; i <= segments; i++) {
+                const y = canvasHeight - (i * segmentHeight);
+                
+                // 绘制刻度线
+                ctx.beginPath();
+                ctx.moveTo(axisMargin - 5, y);
+                ctx.lineTo(axisMargin, y);
+                ctx.stroke();
+                
+                // 绘制标签
+                ctx.fillText(ratings[i], axisMargin - 8, y + 4);
+            }
+            var lstyear="114514",lstmonth="1919810";
+            ratingData.forEach(data => {
+                const x = data.x*canvasWidth;
+                ctx.beginPath();
+                ctx.moveTo(x, canvasHeight);
+                ctx.lineTo(x, canvasHeight + 5);
+                ctx.stroke();
+                const date = new Date(data.time);
+                ctx.fillStyle = "#333";
+                ctx.font = "12px Arial";
+                ctx.textAlign = "center";
+                var year=String(date.getFullYear());
+                if(year!=lstyear){
+                    ctx.fillText(
+                        year+"年",
+                        x,
+                        canvasHeight - 5
+                    );
+                }else{
+                    var month=String(date.getMonth()+1).padStart(2, '0');
+                    if(month!=lstmonth){
+                        ctx.fillText(
+                            month+"月",
+                            x,
+                            canvasHeight - 5
+                        );
+                    }
+                }
+                lstmonth=month,lstyear=year;
+            });
+
+            // 绘制数据折线
+            ctx.beginPath();
+            ctx.lineWidth = 2;
+            ratingData.forEach((point, index) => {
+                const x = point.x*canvasWidth;
+                const y = canvasHeight - point.y * canvasHeight;
+                point._x = x;
+                point._y = y;
+
+                if (index === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+
+            const lineGradient = ctx.createLinearGradient(0, 0, canvasWidth, 0);
+            lineGradient.addColorStop(0, '#00008B');
+            lineGradient.addColorStop(1, '#E0FFFF');
+            ctx.strokeStyle = lineGradient;
+            ctx.stroke();
+
+            // 绘制数据点和标注（保持原有逻辑）
+            ratingData.forEach(point => {
+                const x = point.x*canvasWidth;
+                const y = canvasHeight - point.y * canvasHeight;
+                
+                ctx.beginPath();
+                ctx.fillStyle = "#66CCFF";
+                ctx.arc(x, y, 5, 0, Math.PI*2);
+                ctx.fill();
+                
+                ctx.fillStyle = "#00008B";
+            });
+        }
+
+        // 保持原有事件处理逻辑
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            let hoverPoint = null;
+            for (const point of ratingData) {
+                const dx = mouseX - point._x;
+                const dy = mouseY - point._y;
+                if (Math.hypot(dx, dy) < 12) {
+                    hoverPoint = point;
+                    break;
+                }
+            }
+
+            tooltip.style.display = hoverPoint ? 'block' : 'none';
+            if (hoverPoint) {
+                tooltip.style.left = `${e.pageX + 10}px`;
+                tooltip.style.top = `${e.pageY + 10}px`;
+                tooltip.textContent = "rating: "+parseInt(hoverPoint.rating)+hoverPoint.name;
+            }
+        });
+
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            ratingData.some(point => {
+                const dx = x - point._x;
+                const dy = y - point._y;
+                if (Math.hypot(dx, dy) < 12) {
+                    window.open(point.url, '_blank');
+                    return true;
+                }
+            });
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+    </script>
+</body>
+</html>
